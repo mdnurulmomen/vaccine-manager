@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserLocationRepositoryInterface::class, UserLocationRepository::class);
         $this->app->bind(UserPoliticalPartyRepositoryInterface::class, UserPoliticalPartyRepository::class);
         $this->app->bind(UserSkillRepositoryInterface::class, UserSkillRepository::class);
+        $this->app->bind(UserTypeRepositoryInterface::class, UserTypeRepository::class);
     }
 
     /**
