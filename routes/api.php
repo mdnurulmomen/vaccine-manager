@@ -9,6 +9,8 @@ use App\Http\Controllers\UserInterestController;
 use App\Http\Controllers\PoliticalPartyController;
 use App\Http\Controllers\UserLocationController;
 use App\Http\Controllers\UserPoliticalPartyController;
+use App\Http\Controllers\UserSkillController;
+use App\Http\Controllers\UserTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +46,13 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('user-political-parties', UserPoliticalPartyController::class)->parameters([
         'user-political-parties' => 'userPoliticalParty'
+    ]);
+
+    Route::apiResource('user-skills', UserSkillController::class)->parameters([
+        'user-skills' => 'userSkill'
+    ]);
+
+    Route::apiResource('user-types', UserTypeController::class)->parameters([
+        'user-types' => 'userType'
     ]);
 });
