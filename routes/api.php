@@ -7,6 +7,7 @@ use App\Http\Controllers\InterestController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserInterestController;
 use App\Http\Controllers\PoliticalPartyController;
+use App\Http\Controllers\UserLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,9 @@ Route::prefix('v1')->group(function () {
     
     Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([
         'political-parties' => 'politicalParty'
+    ]);
+
+    Route::apiResource('user-locations', UserLocationController::class)->parameters([
+        'user-locations' => 'userLocation'
     ]);
 });
