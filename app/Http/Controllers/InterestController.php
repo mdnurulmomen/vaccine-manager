@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Interest;
-use App\Http\Interfaces\InterestRepositoryInterface;
 use App\Http\Requests\InterestStoreRequest;
 use App\Http\Requests\InterestUpdateRequest;
+use App\Http\Interfaces\InterestRepositoryInterface;
 
 class InterestController extends Controller
 {
