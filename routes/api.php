@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PoliticalPartyController;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::apiResource('skills', SkillController::class);
     Route::apiResource('interests', InterestController::class);
     Route::apiResource('locations', LocationController::class);
     Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([

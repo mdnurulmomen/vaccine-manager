@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(InterestRepositoryInterface::class, InterestRepository::class);
         $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
         $this->app->bind(PoliticalPartyRepositoryInterface::class, PoliticalPartyRepository::class);
+        $this->app->bind(SkillRepositoryInterface::class, SkillRepository::class);
     }
 
     /**
