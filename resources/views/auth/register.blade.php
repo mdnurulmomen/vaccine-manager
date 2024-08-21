@@ -61,7 +61,22 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
+                        <div class="row mb-4">
+                            <label for="user-type" class="col-md-4 col-form-label text-md-end">{{ __('User Type') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="user-type" name="user_type_id" class="form-control" required>
+                                    <option selected>Choose a type</option>
+                                    @foreach ($userTypes as $userType)
+                                        <option value="{{ $userType->id }}">
+                                            {{ $userType->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-1 mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
