@@ -5,6 +5,7 @@
  */
 
 import './bootstrap';
+
 import { createApp } from 'vue';
 
 /**
@@ -17,6 +18,23 @@ const app = createApp({});
 
 import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
+
+import { createMemoryHistory, createRouter } from 'vue-router'
+
+import Dashboard from './pages/Dashboard.vue'
+import SkillIndex from './pages/SkillIndex.vue'
+
+const routes = [
+  { path: '/', name:'dashboard', component: Dashboard },
+  { path: '/skills', name:'skiils.index', component: SkillIndex },
+]
+
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
+})
+
+app.use(router)
 
 /**
  * The following block of code may be used to automatically register your
