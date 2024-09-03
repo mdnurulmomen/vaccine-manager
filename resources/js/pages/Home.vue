@@ -14,10 +14,10 @@
     </div>
 </template>
 
-<script>
-    export default {
-        mounted() {
-            console.log('Home mounted.')
-        }
-    }
+<script setup>
+    import { onMounted } from 'vue'
+
+    onMounted(() => {
+        console.log('Home mounted.')
+    })
 </script>
