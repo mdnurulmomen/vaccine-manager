@@ -25,8 +25,9 @@ import Home from './pages/Home.vue';
 import SkillIndex from './pages/SkillIndex.vue';
 
 const routes = [
-  { path: '/home', name:'home', component: Home },
-  { path: '/skills', name:'skills.index', component: SkillIndex },
+    { path: '/', redirect: '/home' },
+    { path: '/home', name:'home', component: Home },
+    { path: '/skills', name:'skills.index', component: SkillIndex },
 ];
 
 const router = createRouter({
