@@ -14,20 +14,18 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item active">
-                                        <RouterLink class="nav-link" to="/">
+                                        <RouterLink class="nav-link" to="/home">
                                             Home
-                                            <span class="sr-only" v-show="currentRouteName=='dashboard'">(current)</span>
+                                            <span class="sr-only" v-show="currentRouteName=='home'">(current)</span>
                                         </RouterLink>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <RouterLink id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             Assets
-                                        </RouterLink>
+                                        </a>
 
-                                        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a> -->
-
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             <RouterLink class="dropdown-item" to="/skills">
                                                 Skills
                                                 <span class="sr-only" v-show="currentRouteName=='skills.index'">

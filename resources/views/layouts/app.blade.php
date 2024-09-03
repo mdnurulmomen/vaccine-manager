@@ -37,13 +37,13 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has('login') && Route::currentRouteName()!='login')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has('register') && Route::currentRouteName()!='register')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
@@ -73,10 +73,13 @@
         </nav>
 
         <main class="py-4">
-            <!-- @yield('content') -->
-             <div id="app">
+            @guest
+                @yield('content')
+            @else
+            <div id="app">
                 <menu-bar/>
-             </div>
+            </div>
+            @endguest
         </main>
     </div>
 </body>

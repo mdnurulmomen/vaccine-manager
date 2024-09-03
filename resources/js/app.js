@@ -19,22 +19,22 @@ const app = createApp({});
 import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
 
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createMemoryHistory, createRouter } from 'vue-router';
 
-import Dashboard from './pages/Dashboard.vue'
-import SkillIndex from './pages/SkillIndex.vue'
+import Home from './pages/Home.vue';
+import SkillIndex from './pages/SkillIndex.vue';
 
 const routes = [
-  { path: '/', name:'dashboard', component: Dashboard },
-  { path: '/skills', name:'skiils.index', component: SkillIndex },
-]
+  { path: '/home', name:'home', component: Home },
+  { path: '/skills', name:'skills.index', component: SkillIndex },
+];
 
 const router = createRouter({
   history: createMemoryHistory(),
   routes,
-})
+});
 
-app.use(router)
+app.use(router);
 
 /**
  * The following block of code may be used to automatically register your

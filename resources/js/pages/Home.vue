@@ -6,7 +6,7 @@
                     <div class="card-header">Home</div>
 
                     <div class="card-body">
-                        Hello , You are at Dashboard!
+                        Hello , You are at Home!
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Dashboard mounted.')
+            console.log('Home mounted.')
         }
     }
 </script>
