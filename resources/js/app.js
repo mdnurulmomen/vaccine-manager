@@ -6,7 +6,7 @@
 
 import './bootstrap';
 
-import { createApp } from 'vue';
+import { capitalize, createApp } from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -16,11 +16,19 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
+/* Importing Global MenuBar */
 import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
 
-import { createMemoryHistory, createRouter } from 'vue-router';
+/* Importing Global Components */
+import NameFormModalComponent from './components/NameFormModalComponent.vue';
+import ThreeGridsWithAddButtonComponent from './components/ThreeGridsWithAddButtonComponent.vue';
 
+/* Registering Components Globally */
+app.component('name-form-modal-component', NameFormModalComponent);
+app.component('three-grids-with-add-button-component', ThreeGridsWithAddButtonComponent);
+
+/* Import Pages */
 import Home from './pages/Home.vue';
 import SkillIndex from './pages/SkillIndex.vue';
 
@@ -30,12 +38,23 @@ const routes = [
     { path: '/skills', name:'skills.index', component: SkillIndex },
 ];
 
+import { createMemoryHistory, createRouter } from 'vue-router';
+
 const router = createRouter({
   history: createMemoryHistory(),
   routes,
 });
 
 app.use(router);
+
+/* Global Filters */
+app.config.globalProperties.$filters = {
+    capitalize(value) {
+        if (!value) return '';
+        value = value.toString();
+        return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+}
 
 /**
  * The following block of code may be used to automatically register your
