@@ -23,6 +23,8 @@ class LocationStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', 'unique:locations,name'],
+            'latitude' => ['required', 'numeric', 'unique:locations,latitude'],
+            'longitude' => ['required', 'numeric', 'unique:locations,longitude'],
         ];
     }
 }

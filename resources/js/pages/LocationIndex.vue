@@ -6,7 +6,6 @@
                     <div class="card-header">
                         <three-grids-with-add-button-component
                             element-name="location"
-
                             @show-store-form="showStoreForm"
                         />
                     </div>
@@ -17,6 +16,8 @@
                                 <tr class="row text-center">
                                     <th class="col">#</th>
                                     <th class="col">Name</th>
+                                    <th class="col">Latitude</th>
+                                    <th class="col">Longitude</th>
                                     <th class="col">Actions</th>
                                 </tr>
                             </thead>
@@ -24,6 +25,8 @@
                                 <tr v-for="(content, index) in allContents" class="row text-center">
                                     <td class="col">{{ index+1 }}</td>
                                     <td class="col">{{ content.name }}</td>
+                                    <td class="col">{{ content.latitude }}</td>
+                                    <td class="col">{{ content.longitude }}</td>
                                     <td class="col">
                                         <button
                                             type="button"
@@ -46,7 +49,7 @@
 
                             <tbody v-else>
                                 <tr>
-                                    <th class="text-center" colspan="3">
+                                    <th class="text-center" colspan="5">
                                         <span class="text-danger">No Location Found</span>
                                     </th>
                                 </tr>
@@ -58,7 +61,7 @@
         </div>
 
         <div class="row">
-            <name-form-modal-component
+            <location-form-modal-component
                 element-name="location"
                 :is-submitted="isSubmitted"
                 :is-create-mode="isCreateMode"
@@ -87,7 +90,7 @@
     onMounted(async () => {
         fetchAllContents();
         console.log('Location List mounted.')
-        createOrEditModal.value = new Modal('#name-form-modal', {})
+        createOrEditModal.value = new Modal('#location-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })
 
@@ -99,7 +102,9 @@
     const isCreateMode = ref(true)
 
     const singleAssetData = ref({
-        name : ""
+        name : "",
+        latitude : "",
+        logitude : ""
     })
 
     const createOrEditModal = ref(null)
@@ -148,7 +153,9 @@
         isCreateMode.value = true;
 
         singleAssetData.value = {
-            name : ""
+            name : "",
+            latitude : "",
+            logitude : ""
         };
 
         createOrEditModal.value.show();
@@ -176,7 +183,9 @@
             .finally(response => {
                 isSubmitted.value = false;
                 singleAssetData.value = {
-                    name : ""
+                    name : "",
+                    latitude : "",
+                    logitude : ""
                 };
             });
 
@@ -210,7 +219,9 @@
             .finally(response => {
                 isSubmitted.value = false;
                 singleAssetData.value = {
-                    name : ""
+                    name : "",
+                    latitude : "",
+                    logitude : ""
                 };
             });
 
@@ -243,7 +254,9 @@
             .finally(response => {
                 isSubmitted.value = false;
                 singleAssetData.value = {
-                    name : ""
+                    name : "",
+                    latitude : "",
+                    logitude : ""
                 };
             });
 

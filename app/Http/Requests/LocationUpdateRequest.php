@@ -25,6 +25,14 @@ class LocationUpdateRequest extends FormRequest
             'name' => [
                 'required', 'string', 'max:255', 'unique:locations,name,'.$this->route('location')->id
             ],
+
+            'latitude' => [
+                'required', 'numeric', 'unique:locations,latitude,'.$this->route('location')->id
+            ],
+
+            'longitude' => [
+                'required', 'numeric', 'unique:locations,longitude,'.$this->route('location')->id
+            ],
         ];
     }
 }
