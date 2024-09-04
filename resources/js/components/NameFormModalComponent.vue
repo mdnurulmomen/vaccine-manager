@@ -109,7 +109,7 @@
             case 'name' :
 
                 if (props.singleAssetData.name.length < 1) {
-                    console.log(props.singleAssetData.name.length);
+                    // console.log(props.singleAssetData.name.length);
                     errors.value.name = 'Name is required';
                 }
                 else if (! props.singleAssetData.name.match(/^[a-zA-Z0-9-_ ]+$/)) {

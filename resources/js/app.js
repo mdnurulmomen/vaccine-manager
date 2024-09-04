@@ -33,11 +33,13 @@ app.component('three-grids-with-add-button-component', ThreeGridsWithAddButtonCo
 /* Import Pages */
 import Home from './pages/Home.vue';
 import SkillIndex from './pages/SkillIndex.vue';
+import InterestIndex from './pages/InterestIndex.vue';
 
 const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home', name:'home', component: Home },
     { path: '/skills', name:'skills.index', component: SkillIndex },
+    { path: '/interests', name:'interests.index', component: InterestIndex },
 ];
 
 import { createMemoryHistory, createRouter } from 'vue-router';

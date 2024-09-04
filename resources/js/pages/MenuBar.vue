@@ -32,6 +32,13 @@
                                                     (current)
                                                 </span>
                                             </RouterLink>
+
+                                            <RouterLink class="dropdown-item" to="/interests">
+                                                Interests
+                                                <span class="sr-only" v-show="currentRouteName=='interests.index'">
+                                                    (current)
+                                                </span>
+                                            </RouterLink>
                                         </div>
                                     </li>
                                 </ul>
