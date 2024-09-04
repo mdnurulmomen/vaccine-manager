@@ -47,10 +47,15 @@ After installation, build with *npm*
 npm run dev
 ```
 
-Run the application
+*Please open another tab on terminal*
+
+And Run the application
 ```
 php artisan serve
 ```
+*You're good to go. Now you should be able to browse `http://localhost:8000/`*
+
+***Note*** : *To get started quickly, please start with register button. To see the result you should do registration for multiple users*
 
 ## Folders
 
@@ -67,5 +72,3 @@ php artisan serve
 ## Environment variables
 
 - `.env` - Environment variables can be set in this file
-
-***Note*** : You can quickly set the database information and other variables in these files and have the application fully working.
