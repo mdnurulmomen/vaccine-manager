@@ -43,6 +43,7 @@ import MyInterestIndex from './pages/MyInterestIndex.vue';
 import LocationIndex from './pages/LocationIndex.vue';
 import MyLocationIndex from './pages/MyLocationIndex.vue';
 import PoliticalPartyIndex from './pages/PoliticalPartyIndex.vue';
+import MyPoliticalPartyIndex from './pages/MyPoliticalPartyIndex.vue';
 
 const routes = [
     { path: '/', redirect: '/home' },
@@ -54,6 +55,7 @@ const routes = [
     { path: '/locations', name:'locations.index', component: LocationIndex },
     { path: '/my-locations', name:'my-locations.index', component: MyLocationIndex },
     { path: '/political-parties', name:'political-parties.index', component: PoliticalPartyIndex },
+    { path: '/my-political-parties', name:'my-political-parties.index', component: MyPoliticalPartyIndex },
 ];
 
 import { createWebHistory, createRouter } from 'vue-router';
