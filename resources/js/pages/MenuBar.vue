@@ -39,6 +39,13 @@
                                                     (current)
                                                 </span>
                                             </RouterLink>
+
+                                            <RouterLink class="dropdown-item" to="/locations">
+                                                Locations
+                                                <span class="sr-only" v-show="currentRouteName=='locations.index'">
+                                                    (current)
+                                                </span>
+                                            </RouterLink>
                                         </div>
                                     </li>
                                 </ul>

@@ -31,11 +31,11 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('skills', SkillController::class);
     Route::apiResource('interests', InterestController::class);
     Route::apiResource('locations', LocationController::class);
-    
+
     Route::resource('user-interests', UserInterestController::class)->parameters([
         'user-interests' => 'userInterest'
     ]);
-    
+
     Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([
         'political-parties' => 'politicalParty'
     ]);
