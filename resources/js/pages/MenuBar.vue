@@ -75,6 +75,13 @@
                                                     (current)
                                                 </span>
                                             </RouterLink>
+
+                                            <RouterLink class="dropdown-item" to="/my-locations">
+                                                Preferred Locations
+                                                <span class="sr-only" v-show="currentRouteName=='my-locations.index'">
+                                                    (current)
+                                                </span>
+                                            </RouterLink>
                                         </div>
                                     </li>
                                 </ul>
