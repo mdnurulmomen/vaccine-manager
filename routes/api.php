@@ -54,5 +54,5 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('user-types', UserTypeController::class)->parameters([
         'user-types' => 'userType'
-    ]);
+    ])->only('index');
 });

@@ -65,11 +65,11 @@
                             <label for="user-type" class="col-md-4 col-form-label text-md-end">{{ __('User Type') }}</label>
 
                             <div class="col-md-6">
-                                <select id="user-type" name="user_type_id" class="form-control" required>
+                                <select id="user-type" name="user_type" class="form-control" required>
                                     <option selected>Choose a type</option>
                                     @foreach ($userTypes as $userType)
-                                        <option value="{{ $userType->id }}">
-                                            {{ $userType->name }}
+                                        <option value="{{ $userType }}">
+                                            {{ ucfirst($userType) }}
                                         </option>
                                     @endforeach
                                 </select>
