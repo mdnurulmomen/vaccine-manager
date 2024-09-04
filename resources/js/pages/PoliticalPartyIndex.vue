@@ -82,6 +82,8 @@
 <script setup>
     import { onMounted, ref } from 'vue'
     import { Modal } from 'bootstrap'
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
 
     onMounted(async () => {
         fetchAllContents();
@@ -160,7 +162,7 @@
             .post('api/v1/political-parties/', singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
-                    // this.$toastr.s("New skill has been created", "Success");
+                    toast.success("New party has been created");
                     allContents.value = response.data.data;
                     createOrEditModal.value.hide();
                 }
@@ -168,7 +170,7 @@
             .catch(error => {
                 if (error.response.status == 422) {
                     for (var x in error.response.data.errors) {
-                        // this.$toastr.w(error.response.data.errors[x], "Warning");
+                        toastr.warning(error.response.data.errors[x]);
                     }
                 }
             })
@@ -194,7 +196,7 @@
             .put('api/v1/political-parties/' + singleAssetData.value.id, singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
-                    // this.$toastr.s("Skill has been updated", "Success");
+                    toast.success("Party has been updated");
                     allContents.value = response.data.data;
                     createOrEditModal.value.hide();
                 }
@@ -202,7 +204,7 @@
             .catch(error => {
                 if (error.response.status == 422) {
                     for (var x in error.response.data.errors) {
-                        // this.$toastr.w(error.response.data.errors[x], "Warning");
+                        toast.warning(error.response.data.errors[x]);
                     }
                 }
             })
@@ -227,7 +229,7 @@
             .delete('api/v1/political-parties/' + singleAssetData.value.id)
             .then(response => {
                 if (response.status == 200) {
-                    // this.$toastr.s("Skill has been deleted", "Success");
+                    toast.success("Party has been deleted");
                     allContents.value = response.data.data;
                     deleteConfirmationModal.value.hide();
                 }
@@ -235,7 +237,7 @@
             .catch(error => {
                 if (error.response.status == 422) {
                     for (var x in error.response.data.errors) {
-                        // this.$toastr.w(error.response.data.errors[x], "Warning");
+                        toast.warning(error.response.data.errors[x]);
                     }
                 }
             })

@@ -48,7 +48,6 @@
         },
         restorationMessage : {
             type : String,
-            required : true,
             default : "Remember, You can't restore this item again !"
         },
         contentToDelete : {

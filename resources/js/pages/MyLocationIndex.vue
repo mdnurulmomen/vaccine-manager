@@ -74,6 +74,8 @@
 <script setup>
     import { onMounted, ref } from 'vue'
     import { Modal } from 'bootstrap'
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
 
     onMounted(async () => {
         fetchMyContents();
@@ -197,7 +199,7 @@
             .post('api/v1/user-locations/', singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
-                    // this.$toastr.s("New location has been created", "Success");
+                    toast.success("Selected location has been added");
                     myAllContents.value = response.data.data;
                     myPreferenceAddModal.value.hide();
                 }
@@ -205,7 +207,7 @@
             .catch(error => {
                 if (error.response.status == 422) {
                     for (var x in error.response.data.errors) {
-                        // this.$toastr.w(error.response.data.errors[x], "Warning");
+                        toast.warning(error.response.data.errors[x]);
                     }
                 }
             })
@@ -231,7 +233,7 @@
             .delete('api/v1/user-locations/' + singleAssetData.value.id)
             .then(response => {
                 if (response.status == 200) {
-                    // this.$toastr.s("Location has been deleted", "Success");
+                    toast.success("Selected location has been removed");
                     myAllContents.value = response.data.data;
                     deleteConfirmationModal.value.hide();
                 }
@@ -239,7 +241,7 @@
             .catch(error => {
                 if (error.response.status == 422) {
                     for (var x in error.response.data.errors) {
-                        // this.$toastr.w(error.response.data.errors[x], "Warning");
+                        toast.warning(error.response.data.errors[x]);
                     }
                 }
             })
