@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Interfaces\InterestRepositoryInterface;
 use App\Http\Interfaces\LocationRepositoryInterface;
+use App\Http\Interfaces\MyUserRepositoryInterface;
 use App\Http\Interfaces\PoliticalPartyRepositoryInterface;
 use App\Http\Interfaces\SkillRepositoryInterface;
 use App\Http\Interfaces\UserInterestRepositoryInterface;
@@ -13,6 +14,7 @@ use App\Http\Interfaces\UserSkillRepositoryInterface;
 use App\Http\Interfaces\UserTypeRepositoryInterface;
 use App\Http\Repositories\InterestRepository;
 use App\Http\Repositories\LocationRepository;
+use App\Http\Repositories\MyUserRepository;
 use App\Http\Repositories\PoliticalPartyRepository;
 use App\Http\Repositories\SkillRepository;
 use App\Http\Repositories\UserInterestRepository;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserPoliticalPartyRepositoryInterface::class, UserPoliticalPartyRepository::class);
         $this->app->bind(UserSkillRepositoryInterface::class, UserSkillRepository::class);
         $this->app->bind(UserTypeRepositoryInterface::class, UserTypeRepository::class);
+        $this->app->bind(MyUserRepositoryInterface::class, MyUserRepository::class);
     }
 
     /**

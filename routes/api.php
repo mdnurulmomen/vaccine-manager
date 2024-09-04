@@ -3,14 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\MyUserController;
 use App\Http\Controllers\InterestController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UserInterestController;
 use App\Http\Controllers\PoliticalPartyController;
 use App\Http\Controllers\UserLocationController;
-use App\Http\Controllers\UserPoliticalPartyController;
 use App\Http\Controllers\UserSkillController;
 use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\UserPoliticalPartyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +33,12 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('interests', InterestController::class);
     Route::apiResource('locations', LocationController::class);
 
-    Route::resource('user-interests', UserInterestController::class)->parameters([
-        'user-interests' => 'userInterest'
-    ]);
-
     Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([
         'political-parties' => 'politicalParty'
+    ]);
+
+    Route::resource('user-interests', UserInterestController::class)->parameters([
+        'user-interests' => 'userInterest'
     ]);
 
     Route::apiResource('user-locations', UserLocationController::class)->parameters([
@@ -55,4 +56,6 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('user-types', UserTypeController::class)->parameters([
         'user-types' => 'userType'
     ])->only('index');
+
+    Route::get('/my-users/{id}', [MyUserController::class, 'index'])->name('my-users');
 });

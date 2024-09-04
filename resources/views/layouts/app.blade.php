@@ -82,9 +82,10 @@
             @endguest
         </main>
     </div>
-
+    @auth
     <script type="text/javascript">
         localStorage.setItem("user", JSON.stringify(@json($user)));
     </script>
+    @endauth
 </body>
 </html>
