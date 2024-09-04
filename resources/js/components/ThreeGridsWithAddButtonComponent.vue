@@ -27,7 +27,7 @@
     ])
 
     onMounted(() => {
-        console.log('Three Grids With Add Button Component mounted.')
+        // console.log('Three Grids With Add Button Component mounted.')
     })
 
     function showStoreForm() {

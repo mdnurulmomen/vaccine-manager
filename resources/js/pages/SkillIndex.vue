@@ -86,7 +86,7 @@
 
     onMounted(async () => {
         fetchAllContents();
-        console.log('Skill List mounted.')
+        // console.log('Skill List mounted.')
         createOrEditModal.value = new Modal('#name-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })

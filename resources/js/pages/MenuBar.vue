@@ -48,7 +48,7 @@
                                             </RouterLink>
 
                                             <RouterLink class="dropdown-item" to="/political-parties">
-                                                Polytical-Parties
+                                                Political-Parties
                                                 <span class="sr-only" v-show="currentRouteName=='political-parties.index'">
                                                     (current)
                                                 </span>
@@ -108,7 +108,7 @@
 <script>
     export default {
         mounted() {
-            console.log('MenuBar mounted.')
+            // console.log('MenuBar mounted.')
         },
 
         computed: {

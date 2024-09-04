@@ -85,7 +85,7 @@
 
     onMounted(async () => {
         fetchAllContents();
-        console.log('Political-Party List mounted.')
+        // console.log('Political-Party List mounted.')
         createOrEditModal.value = new Modal('#name-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })

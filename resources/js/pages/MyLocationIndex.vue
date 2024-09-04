@@ -78,7 +78,7 @@
     onMounted(async () => {
         fetchMyContents();
         fetchAvailableAssets();
-        console.log('My Location List mounted.')
+        // console.log('My Location List mounted.')
         myPreferenceAddModal.value = new Modal('#my-preference-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })

@@ -69,7 +69,7 @@
     const emit = defineEmits(['storeAsset', 'updateAsset'])
 
     onMounted(() => {
-        console.log('Add Button Component mounted.')
+        // console.log('Add Button Component mounted.')
     })
 
     const submitForm = ref(true)

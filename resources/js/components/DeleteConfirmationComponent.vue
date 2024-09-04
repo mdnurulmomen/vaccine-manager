@@ -58,7 +58,7 @@
     })
 
     onMounted(() => {
-        console.log('Delete Confirmation mounted.')
+        // console.log('Delete Confirmation mounted.')
     })
 
 </script>

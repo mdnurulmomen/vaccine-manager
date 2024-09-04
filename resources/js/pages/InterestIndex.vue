@@ -86,7 +86,7 @@
 
     onMounted(async () => {
         fetchAllContents();
-        console.log('Interest List mounted.')
+        // console.log('Interest List mounted.')
         createOrEditModal.value = new Modal('#name-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })

@@ -89,7 +89,7 @@
 
     onMounted(async () => {
         fetchAllContents();
-        console.log('Location List mounted.')
+        // console.log('Location List mounted.')
         createOrEditModal.value = new Modal('#location-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })
