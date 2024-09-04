@@ -10,9 +10,10 @@ class MyUserRepository implements MyUserRepositoryInterface
 {
     public function myAllUsers()
     {
-        $users = User::where('user_type', UserType::Polititian->value);
-
         $currentUser = User::with(['skills', 'interests', 'parties'])->find(request()->route('id'));
+
+        $users = User::where('user_type', UserType::Polititian->value)
+        ->where('id', '!=', $currentUser->id);
 
         if (! $currentUser->skills->isEmpty()) {
             $users->whereHas('skills', function ($query) use ($currentUser) {
