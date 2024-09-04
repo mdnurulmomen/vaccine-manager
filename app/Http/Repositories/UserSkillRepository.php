@@ -9,12 +9,12 @@ class UserSkillRepository implements UserSkillRepositoryInterface
 {
     public function allSkills()
     {
-        $query = UserSkill::query();
-        
+        $query = UserSkill::query()->with('skill');
+
         if (request()->filled('user_id')) {
             $query->where('user_id', request()->user_id);
         }
-        
+
         return $query->latest('id')->paginate(10);
     }
 

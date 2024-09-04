@@ -9,12 +9,12 @@ class UserLocationRepository implements UserLocationRepositoryInterface
 {
     public function allUserLocations()
     {
-        $query = UserLocation::query();
-        
+        $query = UserLocation::query()->with('location');
+
         if (request()->filled('user_id')) {
             $query->where('user_id', request()->user_id);
         }
-        
+
         return $query->latest('id')->paginate(10);
     }
 

@@ -10,4 +10,8 @@ class UserSkill extends Model
     use HasFactory;
     protected $guarded = ['id'];
     public $timestamps = false;
+
+    public function skill() {
+        return $this->belongsTo(Skill::class, 'skill_id', 'id');
+    }
 }

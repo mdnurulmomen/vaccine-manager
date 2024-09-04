@@ -9,12 +9,12 @@ class UserPoliticalPartyRepository implements UserPoliticalPartyRepositoryInterf
 {
     public function allUserPoliticalPartys()
     {
-        $query = UserPoliticalParty::query();
-        
+        $query = UserPoliticalParty::query()->with('politicalParty');
+
         if (request()->filled('user_id')) {
             $query->where('user_id', request()->user_id);
         }
-        
+
         return $query->latest('id')->paginate(10);
     }
 
