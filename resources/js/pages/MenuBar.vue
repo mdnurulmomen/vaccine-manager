@@ -46,6 +46,13 @@
                                                     (current)
                                                 </span>
                                             </RouterLink>
+
+                                            <RouterLink class="dropdown-item" to="/political-parties">
+                                                Polytical-Parties
+                                                <span class="sr-only" v-show="currentRouteName=='political-parties.index'">
+                                                    (current)
+                                                </span>
+                                            </RouterLink>
                                         </div>
                                     </li>
                                 </ul>

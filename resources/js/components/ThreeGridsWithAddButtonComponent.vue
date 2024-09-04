@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-xs-4 col-md-4">
-            Available {{ $filters.capitalize(elementName) }}'s
+            Available {{ elementName.slice(-1)=='y' ? ($filters.capitalize(elementName.replace(/.$/,"ies"))) : ($filters.capitalize(elementName) + "'s") }}
         </div>
         <div class="col-xs-4 col-md-4 text-center"></div>
         <div class="col-xs-4 col-md-4 text-end">

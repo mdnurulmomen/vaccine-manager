@@ -35,6 +35,7 @@ import Home from './pages/Home.vue';
 import SkillIndex from './pages/SkillIndex.vue';
 import InterestIndex from './pages/InterestIndex.vue';
 import LocationIndex from './pages/LocationIndex.vue';
+import PoliticalPartyIndex from './pages/PoliticalPartyIndex.vue';
 
 const routes = [
     { path: '/', redirect: '/home' },
@@ -42,6 +43,7 @@ const routes = [
     { path: '/skills', name:'skills.index', component: SkillIndex },
     { path: '/interests', name:'interests.index', component: InterestIndex },
     { path: '/locations', name:'locations.index', component: LocationIndex },
+    { path: '/political-parties', name:'political-parties.index', component: PoliticalPartyIndex },
 ];
 
 import { createMemoryHistory, createRouter } from 'vue-router';
@@ -57,8 +59,15 @@ app.use(router);
 app.config.globalProperties.$filters = {
     capitalize(value) {
         if (!value) return '';
-        value = value.toString();
-        return value.charAt(0).toUpperCase() + value.slice(1);
+
+        /* Each Word Capitalization */
+        const words = value.split("-");
+
+        for (let i = 0; i < words.length; i++) {
+            words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+        }
+
+        return words.join(" ");
     }
 }
 
