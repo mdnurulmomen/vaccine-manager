@@ -21,12 +21,14 @@ import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
 
 /* Importing Global Components */
+import MyFormModalComponent from './components/MyFormModalComponent.vue';
 import NameFormModalComponent from './components/NameFormModalComponent.vue';
 import LocationFormModalComponent from './components/LocationFormModalComponent.vue';
 import DeleteConfirmationComponent from './components/DeleteConfirmationComponent.vue';
 import ThreeGridsWithAddButtonComponent from './components/ThreeGridsWithAddButtonComponent.vue';
 
 /* Registering Components Globally */
+app.component('my-form-modal-component', MyFormModalComponent);
 app.component('name-form-modal-component', NameFormModalComponent);
 app.component('location-form-modal-component', LocationFormModalComponent);
 app.component('delete-confirmation-component', DeleteConfirmationComponent);
@@ -35,6 +37,7 @@ app.component('three-grids-with-add-button-component', ThreeGridsWithAddButtonCo
 /* Import Pages */
 import Home from './pages/Home.vue';
 import SkillIndex from './pages/SkillIndex.vue';
+import MySkillIndex from './pages/MySkillIndex.vue';
 import InterestIndex from './pages/InterestIndex.vue';
 import LocationIndex from './pages/LocationIndex.vue';
 import PoliticalPartyIndex from './pages/PoliticalPartyIndex.vue';
@@ -43,15 +46,16 @@ const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home', name:'home', component: Home },
     { path: '/skills', name:'skills.index', component: SkillIndex },
+    { path: '/my-skills', name:'my-skills.index', component: MySkillIndex },
     { path: '/interests', name:'interests.index', component: InterestIndex },
     { path: '/locations', name:'locations.index', component: LocationIndex },
     { path: '/political-parties', name:'political-parties.index', component: PoliticalPartyIndex },
 ];
 
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createWebHistory, createRouter } from 'vue-router';
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 

@@ -55,6 +55,21 @@
                                             </RouterLink>
                                         </div>
                                     </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            My Preferences
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <RouterLink class="dropdown-item" to="/my-skills">
+                                                Preferred Skills
+                                                <span class="sr-only" v-show="currentRouteName=='my-skills.index'">
+                                                    (current)
+                                                </span>
+                                            </RouterLink>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </nav>
