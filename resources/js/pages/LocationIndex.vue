@@ -236,7 +236,7 @@
         isSubmitted.value = true;
 
         axios
-            .delete('api/v1/locations/' + singleAssetData.value.id, singleAssetData.value)
+            .delete('api/v1/locations/' + singleAssetData.value.id)
             .then(response => {
                 if (response.status == 200) {
                     // this.$toastr.s("Skill has been deleted", "Success");
