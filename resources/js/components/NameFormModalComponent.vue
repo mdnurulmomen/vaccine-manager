@@ -6,8 +6,6 @@
                     v-on:submit.prevent="verifyUserInput"
                     autocomplete="off"
                 >
-                    <input type="hidden" name="_token" :value="csrf">
-
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
                             {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $filters.capitalize(elementName) }}
@@ -26,7 +24,7 @@
                                 :disabled="isSubmitted"
                                 required="true"
                             >
-                            <div class="text-danger" v-show="errors.name">Name is required</div>
+                            <div class="text-danger" v-show="errors.name">{{ errors.name }}</div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -82,7 +80,7 @@
 
     function verifyUserInput() {
 
-        this.validateFormInput('name');
+        validateFormInput('name');
 
         if (errors.value.name) {
             submitForm.value = false;
@@ -111,9 +109,10 @@
             case 'name' :
 
                 if (props.singleAssetData.name.length < 1) {
+                    console.log(props.singleAssetData.name.length);
                     errors.value.name = 'Name is required';
                 }
-                else if (! props.singleAssetData.name.match(/^[a-zA-Z0-9-_]+$/)) {
+                else if (! props.singleAssetData.name.match(/^[a-zA-Z0-9-_ ]+$/)) {
                     errors.value.name = 'No special character is allowed';
                 }
                 else{

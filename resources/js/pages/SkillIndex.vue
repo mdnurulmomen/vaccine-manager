@@ -14,17 +14,17 @@
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Actions</th>
+                                <tr class="row text-center">
+                                    <th class="col">#</th>
+                                    <th class="col">Name</th>
+                                    <th class="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody v-if="allContents.length">
-                                <tr v-for="(content, index) in allContents">
-                                    <th scope="row">{{ index+1 }}</th>
-                                    <td>{{ content.name }}</td>
-                                    <td>
+                                <tr v-for="(content, index) in allContents" class="row text-center">
+                                    <td class="col">{{ index+1 }}</td>
+                                    <td class="col">{{ content.name }}</td>
+                                    <td class="col">
                                         <button
                                             type="button"
                                             class="btn btn-outline-primary"
@@ -36,7 +36,7 @@
                                         <button
                                             type="button"
                                             class="btn btn-outline-danger ms-2"
-                                            @click="showContentDeleteConfirmationForm"
+                                            @click="showContentDeleteConfirmationForm(content)"
                                         >
                                             Delete
                                         </button>
@@ -68,6 +68,15 @@
 			    @update-asset="updateAsset"
             />
         </div>
+
+        <div class="row">
+            <delete-confirmation-component
+                :is-submitted="isSubmitted"
+                :content-to-delete="singleAssetData"
+
+                @emit-delete-method="deleteAsset"
+            />
+        </div>
     </div>
 </template>
 
@@ -78,7 +87,8 @@
     onMounted(async () => {
         fetchAllContents();
         console.log('Skill List mounted.')
-        modal.value = new Modal('#name-form-modal', {})
+        createOrEditModal.value = new Modal('#name-form-modal', {})
+        deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })
 
     const loading = ref(true)
@@ -92,7 +102,8 @@
         name : ""
     })
 
-    const modal = ref(null)
+    const createOrEditModal = ref(null)
+    const deleteConfirmationModal = ref(null)
 
     function fetchAllContents() {
 
@@ -102,8 +113,10 @@
         axios
             .get('/api/v1/skills/')
             .then(response => {
+                // console.log(response);
                 if (response.status == 200) {
-                    allContents.value = response.data;
+                    // console.log(response);
+                    allContents.value = response.data.data;
                 }
             })
             .catch(error => {
@@ -138,22 +151,19 @@
             name : ""
         };
 
-        modal.value.show();
+        createOrEditModal.value.show();
     }
     function storeAsset() {
 
         isSubmitted.value = true;
 
         axios
-            .post('/skills/', singleAssetData.value)
+            .post('api/v1/skills/', singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
                     // this.$toastr.s("New skill has been created", "Success");
-                    allContents.value = response.data;
-
-                    fetchAllContents();
-
-                    // this.modal.hide();
+                    allContents.value = response.data.data;
+                    createOrEditModal.value.hide();
                 }
             })
             .catch(error => {
@@ -165,29 +175,29 @@
             })
             .finally(response => {
                 isSubmitted.value = false;
+                singleAssetData.value = {
+                    name : ""
+                };
             });
 
     }
 
     function showContentEditForm(content) {
-        isCreateMode = false;
+        isCreateMode.value = false;
         singleAssetData.value = content;
-        modal.value.show();
+        createOrEditModal.value.show();
     }
     function updateAsset() {
 
         isSubmitted.value = true;
 
         axios
-            .put('/skills/' + singleAssetData.value.id, singleAssetData.value)
+            .put('api/v1/skills/' + singleAssetData.value.id, singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
                     // this.$toastr.s("Skill has been updated", "Success");
-                    allContents.value = response.data;
-
-                    fetchAllContents();
-
-                    modal.value.hide();
+                    allContents.value = response.data.data;
+                    createOrEditModal.value.hide();
                 }
             })
             .catch(error => {
@@ -199,23 +209,28 @@
             })
             .finally(response => {
                 isSubmitted.value = false;
+                singleAssetData.value = {
+                    name : ""
+                };
             });
 
     }
-    function deleteAsset(singleAssetData) {
+
+    function showContentDeleteConfirmationForm(content) {
+        singleAssetData.value = content;
+        deleteConfirmationModal.value.show();
+    }
+    function deleteAsset() {
 
         isSubmitted.value = true;
 
         axios
-            .delete('/containers/' + singleAssetData.value.id, singleAssetData.value)
+            .delete('api/v1/skills/' + singleAssetData.value.id, singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
                     // this.$toastr.s("Skill has been deleted", "Success");
-                    allContents.value = response.data;
-
-                    fetchAllContents();
-
-                    $('#delete-confirmation-modal').modal('hide');
+                    allContents.value = response.data.data;
+                    deleteConfirmationModal.value.hide();
                 }
             })
             .catch(error => {
@@ -227,6 +242,9 @@
             })
             .finally(response => {
                 isSubmitted.value = false;
+                singleAssetData.value = {
+                    name : ""
+                };
             });
 
     }

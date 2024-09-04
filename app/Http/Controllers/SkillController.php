@@ -15,7 +15,7 @@ class SkillController extends Controller
     {
         $this->skillRepository = $skillRepository;
     }
-    
+
     /**
      * Display a listing of the resource.
      */
