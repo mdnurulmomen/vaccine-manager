@@ -22,10 +22,12 @@ app.component('menu-bar', MenuBar);
 
 /* Importing Global Components */
 import NameFormModalComponent from './components/NameFormModalComponent.vue';
+import DeleteConfirmationComponent from './components/DeleteConfirmationComponent.vue';
 import ThreeGridsWithAddButtonComponent from './components/ThreeGridsWithAddButtonComponent.vue';
 
 /* Registering Components Globally */
 app.component('name-form-modal-component', NameFormModalComponent);
+app.component('delete-confirmation-component', DeleteConfirmationComponent);
 app.component('three-grids-with-add-button-component', ThreeGridsWithAddButtonComponent);
 
 /* Import Pages */
