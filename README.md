@@ -55,7 +55,7 @@ php artisan serve
 ```
 *You're good to go. Now you should be able to browse `http://localhost:8000/`*
 
-***Note*** : *To get started quickly, please start with register button. To see the result you should do registration for multiple users*
+***Note*** : *To get started quickly, please start with register button. To see the result you should do registration for multiple users and add multiple asset-preferences for each user*
 
 ## Folders
 
