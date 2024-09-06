@@ -73,13 +73,13 @@
         </nav>
 
         <main class="py-4">
-            @guest
-                @yield('content')
+            @auth
+                <div id="app">
+                    <menu-bar/>
+                </div>
             @else
-            <div id="app">
-                <menu-bar/>
-            </div>
-            @endguest
+                @yield('content')
+            @endauth
         </main>
     </div>
     @auth

@@ -52,7 +52,7 @@
         <div class="row">
             <my-form-modal-component
                 element-name="interest"
-                :assets="allAvailableAssets"
+                :available-assets="allAvailableAssets"
                 :is-submitted="isSubmitted"
                 :single-asset-data="singleAssetData"
 
@@ -65,7 +65,7 @@
                 :is-submitted="isSubmitted"
                 :content-to-delete="singleAssetData"
 
-                @emit-delete-method="deleteAsset"
+                @emit-delete-method="deleteMyAsset"
             />
         </div>
     </div>
@@ -141,7 +141,6 @@
             });
 
     }
-
     function fetchAvailableAssets() {
 
         loading.value = true;
@@ -180,7 +179,6 @@
             });
 
     }
-
     function showStoreForm() {
 
         singleAssetData.value = {
@@ -220,12 +218,11 @@
             });
 
     }
-
     function showContentDeleteConfirmationForm(content) {
         singleAssetData.value = content;
         deleteConfirmationModal.value.show();
     }
-    function deleteAsset() {
+    function deleteMyAsset() {
 
         isSubmitted.value = true;
 

@@ -23,7 +23,7 @@
                             >
                                 <option disabled value="">Please select {{ $filters.capitalize(elementName) }}</option>
                                 <option
-                                    v-for="asset in props.assets" :value="asset.id"
+                                    v-for="asset in props.availableAssets" :value="asset.id"
                                 >
                                     {{ $filters.capitalize(asset.name) }}
                                 </option>
@@ -36,7 +36,7 @@
                         <button
                             type="submit"
                             class="btn btn-success"
-                            :disabled="! submitForm || isSubmitted"
+                            :disabled="! isSubmittable || isSubmitted"
                         >
                             Add
                         </button>
@@ -64,7 +64,7 @@
             type: Object,
             required: true
         },
-        assets: {
+        availableAssets: {
             type: Array,
             required: true,
             default: []
@@ -77,7 +77,7 @@
         // console.log('Add Button Component mounted.')
     })
 
-    const submitForm = ref(true)
+    const isSubmittable = ref(true)
 
     const errors = ref({
         name: null,
@@ -88,7 +88,7 @@
         validateFormInput('name');
 
         if (errors.value.name) {
-            submitForm.value = false;
+            isSubmittable.value = false;
             return;
         }
         else {
@@ -101,7 +101,7 @@
 
     function validateFormInput(formInputName) {
 
-        submitForm.value = false;
+        isSubmittable.value = false;
 
         switch(formInputName) {
 
@@ -112,7 +112,7 @@
                     errors.value.name = 'This is required';
                 }
                 else{
-                    submitForm.value = true;
+                    isSubmittable.value = true;
                     errors.value.name = null;
                 }
 

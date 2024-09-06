@@ -144,7 +144,6 @@
             });
 
     }
-
     function showStoreForm() {
         isCreateMode.value = true;
 
@@ -182,7 +181,6 @@
             });
 
     }
-
     function showContentEditForm(content) {
         isCreateMode.value = false;
         singleAssetData.value = content;
@@ -216,7 +214,6 @@
             });
 
     }
-
     function showContentDeleteConfirmationForm(content) {
         singleAssetData.value = content;
         deleteConfirmationModal.value.show();

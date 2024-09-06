@@ -32,7 +32,7 @@
                         <button
                             type="submit"
                             :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
-                            :disabled="! submitForm || isSubmitted"
+                            :disabled="! isSubmittable || isSubmitted"
                         >
                             Save
                         </button>
@@ -72,7 +72,7 @@
         // console.log('Add Button Component mounted.')
     })
 
-    const submitForm = ref(true)
+    const isSubmittable = ref(true)
 
     const errors = ref({
         name: null,
@@ -83,7 +83,7 @@
         validateFormInput('name');
 
         if (errors.value.name) {
-            submitForm.value = false;
+            isSubmittable.value = false;
             return;
         }
         else {
@@ -102,7 +102,7 @@
 
     function validateFormInput(formInputName) {
 
-        submitForm.value = false;
+        isSubmittable.value = false;
 
         switch(formInputName) {
 
@@ -116,7 +116,7 @@
                     errors.value.name = 'No special character is allowed';
                 }
                 else{
-                    submitForm.value = true;
+                    isSubmittable.value = true;
                     errors.value.name = null;
                 }
 

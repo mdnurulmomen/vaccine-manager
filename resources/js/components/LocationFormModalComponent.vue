@@ -18,13 +18,15 @@
                             <input
                                 v-model="singleAssetData.name"
                                 type="text"
-                                :class="['form-control', errors.name  ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', errors.name ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input name"
                                 @change="validateFormInput('name')"
                                 :disabled="isSubmitted"
                                 required="true"
                             >
-                            <div class="text-danger" v-show="errors.name">{{ errors.name }}</div>
+                            <div class="text-danger" v-show="errors.name">
+                                {{ errors.name }}
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -32,14 +34,16 @@
                             <input
                                 v-model="singleAssetData.latitude"
                                 type="number"
-                                :class="['form-control', errors.latitude  ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', errors.latitude ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input latitude"
                                 @change="validateFormInput('latitude')"
                                 :disabled="isSubmitted"
                                 required="true"
                                 step=".001"
                             >
-                            <div class="text-danger" v-show="errors.latitude">{{ errors.latitude }}</div>
+                            <div class="text-danger" v-show="errors.latitude">
+                                {{ errors.latitude }}
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -47,14 +51,20 @@
                             <input
                                 v-model="singleAssetData.longitude"
                                 type="number"
-                                :class="['form-control', errors.longitude  ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', errors.longitude ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input longitude"
                                 @change="validateFormInput('longitude')"
                                 :disabled="isSubmitted"
                                 required="true"
                                 step=".001"
                             >
-                            <div class="text-danger" v-show="errors.longitude">{{ errors.longitude }}</div>
+                            <div class="text-danger" v-show="errors.longitude">
+                                {{ errors.longitude }}
+                            </div>
+                        </div>
+
+                        <div class="text-danger text-center" v-show="errorMessage">
+                            {{ errorMessage }}
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -62,7 +72,7 @@
                         <button
                             type="submit"
                             :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
-                            :disabled="! submitForm || isSubmitted"
+                            :disabled="! isSubmittable || isSubmitted || props.errorMessage"
                         >
                             Save
                         </button>
@@ -93,7 +103,11 @@
         singleAssetData: {
             type: Object,
             required: true
-        }
+        },
+        errorMessage: {
+            type: Object,
+            default: null
+        },
     })
 
     const emit = defineEmits(['storeAsset', 'updateAsset'])
@@ -102,7 +116,7 @@
         // console.log('Add Button Component mounted.')
     })
 
-    const submitForm = ref(true)
+    const isSubmittable = ref(true)
 
     const errors = ref({
         name: null,
@@ -113,18 +127,20 @@
     function verifyUserInput() {
 
         validateFormInput('name');
+        validateFormInput('latitude');
+        validateFormInput('longitude');
 
         if (errors.value.name) {
-            submitForm.value = false;
+            isSubmittable.value = false;
             return;
         } else if (errors.value.latitude) {
-            submitForm.value = false;
+            isSubmittable.value = false;
             return;
         } else if (errors.value.longitude) {
-            submitForm.value = false;
+            isSubmittable.value = false;
             return;
         } else {
-            submitForm.value = true;
+            isSubmittable.value = true;
 
             if (props.isCreateMode) {
                 emit('storeAsset', props.singleAssetData);
@@ -140,7 +156,7 @@
 
     function validateFormInput(formInputName) {
 
-        submitForm.value = false;
+        isSubmittable.value = false;
 
         switch(formInputName) {
 
@@ -153,7 +169,7 @@
                     errors.value.name = 'No special character is allowed';
                 }
                 else{
-                    submitForm.value = true;
+                    isSubmittable.value = true;
                     errors.value.name = null;
                 }
 
@@ -165,7 +181,7 @@
                     errors.value.latitude = 'Latitude is required';
                 }
                 else{
-                    submitForm.value = true;
+                    isSubmittable.value = true;
                     errors.value.latitude = null;
                 }
 
@@ -177,7 +193,7 @@
                     errors.value.longitude = 'Longitude is required';
                 }
                 else{
-                    submitForm.value = true;
+                    isSubmittable.value = true;
                     errors.value.longitude = null;
                 }
 

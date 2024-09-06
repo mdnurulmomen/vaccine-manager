@@ -105,16 +105,17 @@
     </div>
 </template>
 
-<script>
-    export default {
-        mounted() {
-            // console.log('MenuBar mounted.')
-        },
+<script setup>
+    import { onMounted, computed } from 'vue';
+    import { useRouter } from 'vue-router'
 
-        computed: {
-            currentRouteName() {
-                return this.$route.name;
-            }
-        }
-    }
+    onMounted(() => {
+
+    });
+
+    const router = useRouter();
+
+    const currentRouteName = computed(() => {
+        return router.name;
+    })
 </script>

@@ -66,6 +66,7 @@
                 :is-submitted="isSubmitted"
                 :is-create-mode="isCreateMode"
                 :single-asset-data="singleAssetData"
+                :error-message = "errorMessage"
 
                 @store-asset="storeAsset"
 			    @update-asset="updateAsset"
@@ -109,6 +110,8 @@
         logitude : ""
     })
 
+    const errorMessage = ref(null)
+
     const createOrEditModal = ref(null)
     const deleteConfirmationModal = ref(null)
 
@@ -150,7 +153,6 @@
             });
 
     }
-
     function showStoreForm() {
         isCreateMode.value = true;
 
@@ -172,6 +174,7 @@
                 if (response.status == 200) {
                     toast.success("New location has been created");
                     allContents.value = response.data.data;
+                    resetSingleAssetData();
                     createOrEditModal.value.hide();
                 }
             })
@@ -181,18 +184,15 @@
                         toast.warning(error.response.data.errors[x]);
                     }
                 }
+
+                errorMessage.value = error.response.data.message;
+
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : "",
-                    latitude : "",
-                    logitude : ""
-                };
             });
 
     }
-
     function showContentEditForm(content) {
         isCreateMode.value = false;
         singleAssetData.value = content;
@@ -208,6 +208,7 @@
                 if (response.status == 200) {
                     toast.success("Location has been updated");
                     allContents.value = response.data.data;
+                    resetSingleAssetData();
                     createOrEditModal.value.hide();
                 }
             })
@@ -217,18 +218,15 @@
                         toast.warning(error.response.data.errors[x]);
                     }
                 }
+
+                errorMessage.value = error.response.data.message;
+
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : "",
-                    latitude : "",
-                    logitude : ""
-                };
             });
 
     }
-
     function showContentDeleteConfirmationForm(content) {
         singleAssetData.value = content;
         deleteConfirmationModal.value.show();
@@ -243,6 +241,7 @@
                 if (response.status == 200) {
                     toast.success("Location has been deleted");
                     allContents.value = response.data.data;
+                    resetSingleAssetData();
                     deleteConfirmationModal.value.hide();
                 }
             })
@@ -252,15 +251,20 @@
                         toast.warning(error.response.data.errors[x]);
                     }
                 }
+
+                errorMessage.value = error.response.data.message;
+
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : "",
-                    latitude : "",
-                    logitude : ""
-                };
             });
 
+    }
+    function resetSingleAssetData() {
+        singleAssetData.value = {
+            name : "",
+            latitude : "",
+            logitude : ""
+        };
     }
 </script>
