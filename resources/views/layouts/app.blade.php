@@ -84,7 +84,7 @@
     </div>
     @auth
     <script type="text/javascript">
-        localStorage.setItem("user", JSON.stringify(@json($user)));
+        localStorage.setItem("access_token", JSON.stringify(@json($access_token)));
     </script>
     @endauth
 </body>

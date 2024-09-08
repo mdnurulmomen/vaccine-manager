@@ -25,6 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         // return view('home');
-        return view('layouts.app', ['user' => Auth::user()]);
+        return view('layouts.app', ['access_token' => Auth::user()->createToken('Personal Access Token')->plainTextToken]);
     }
 }
