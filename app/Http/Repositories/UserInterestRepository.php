@@ -9,11 +9,8 @@ class UserInterestRepository implements UserInterestRepositoryInterface
 {
     public function allUserInterests()
     {
-        $query = UserInterest::query()->with('interest');
-
-        if (request()->filled('user_id')) {
-            $query->where('user_id', request()->user_id);
-        }
+        $query = UserInterest::query()->with('interest')
+        ->where('user_id', request()->user()->id);
 
         return $query->latest('id')->paginate(10);
     }

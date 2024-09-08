@@ -10,7 +10,7 @@ class MyUserRepository implements MyUserRepositoryInterface
 {
     public function myAllUsers()
     {
-        $currentUser = User::with(['skills', 'interests', 'parties'])->find(request()->route('id'));
+        $currentUser = User::with(['skills', 'interests', 'parties'])->find(request()->user()->id);
 
         $users = User::where('user_type', UserType::Polititian->value)
         ->where('id', '!=', $currentUser->id);

@@ -48,15 +48,13 @@
 
     const allContents = ref([])
 
-    const user = ref(JSON.parse(window.localStorage.getItem('user')))
-
     function fetchAllContents() {
 
         // loading.value = true;
         allContents.value = [];
 
         axios
-            .get('/api/v1/my-users/' + user.value.id)
+            .get('/api/v1/my-users/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {

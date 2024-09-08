@@ -102,8 +102,6 @@
         skill_id : null
     })
 
-    // const user = ref(JSON.parse(window.localStorage.getItem('user')))
-
     const myPreferenceAddModal = ref(null)
     const deleteConfirmationModal = ref(null)
 
