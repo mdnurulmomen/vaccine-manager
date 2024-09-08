@@ -66,7 +66,7 @@
                 :is-submitted="isSubmitted"
                 :is-create-mode="isCreateMode"
                 :single-asset-data="singleAssetData"
-                :error-message = "errorMessage"
+                :validation-errors="errors"
 
                 @store-asset="storeAsset"
 			    @update-asset="updateAsset"
@@ -107,10 +107,14 @@
     const singleAssetData = ref({
         name : "",
         latitude : "",
-        logitude : ""
+        longitude : ""
     })
 
-    const errorMessage = ref(null)
+    const errors = ref({
+        name : null,
+        latitude : null,
+        longitude : null
+    })
 
     const createOrEditModal = ref(null)
     const deleteConfirmationModal = ref(null)
@@ -156,11 +160,8 @@
     function showStoreForm() {
         isCreateMode.value = true;
 
-        singleAssetData.value = {
-            name : "",
-            latitude : "",
-            logitude : ""
-        };
+        resetErrorObject();
+        resetSingleAssetObject();
 
         createOrEditModal.value.show();
     }
@@ -174,19 +175,19 @@
                 if (response.status == 200) {
                     toast.success("New location has been created");
                     allContents.value = response.data.data;
-                    resetSingleAssetData();
                     createOrEditModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
-
-                errorMessage.value = error.response.data.message;
-
             })
             .finally(response => {
                 isSubmitted.value = false;
@@ -208,19 +209,19 @@
                 if (response.status == 200) {
                     toast.success("Location has been updated");
                     allContents.value = response.data.data;
-                    resetSingleAssetData();
                     createOrEditModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
-
-                errorMessage.value = error.response.data.message;
-
             })
             .finally(response => {
                 isSubmitted.value = false;
@@ -241,30 +242,37 @@
                 if (response.status == 200) {
                     toast.success("Location has been deleted");
                     allContents.value = response.data.data;
-                    resetSingleAssetData();
                     deleteConfirmationModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
                         toast.warning(error.response.data.errors[x]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
-
-                errorMessage.value = error.response.data.message;
-
             })
             .finally(response => {
                 isSubmitted.value = false;
             });
 
     }
-    function resetSingleAssetData() {
+    function resetSingleAssetObject() {
         singleAssetData.value = {
             name : "",
             latitude : "",
-            logitude : ""
+            longitude : ""
+        };
+    }
+    function resetErrorObject() {
+        errors.value = {
+            name : null,
+            latitude : null,
+            longitude : null
         };
     }
 </script>

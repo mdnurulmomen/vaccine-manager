@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    v-on:submit.prevent="verifyUserInput"
+                    v-on:submit.prevent="submitForm()"
                     autocomplete="off"
                 >
                     <div class="modal-header">
@@ -18,13 +18,13 @@
                             <input
                                 v-model="singleAssetData.name"
                                 type="text"
-                                :class="['form-control', errors.name  ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', props.validationErrors.name  ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input name"
                                 @change="validateFormInput('name')"
                                 :disabled="isSubmitted"
                                 required="true"
                             >
-                            <div class="text-danger" v-show="errors.name">{{ errors.name }}</div>
+                            <div class="text-danger" v-show="props.validationErrors.name">{{ props.validationErrors.name }}</div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -32,7 +32,7 @@
                         <button
                             type="submit"
                             :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
-                            :disabled="! isSubmittable || isSubmitted"
+                            :disabled="! isSubmittable || isSubmitted || Object.keys(props.validationErrors).some(key => props.validationErrors[key])"
                         >
                             Save
                         </button>
@@ -63,6 +63,10 @@
         singleAssetData: {
             type: Object,
             required: true
+        },
+        validationErrors: {
+            type: Object,
+            required: true
         }
     })
 
@@ -74,19 +78,9 @@
 
     const isSubmittable = ref(true)
 
-    const errors = ref({
-        name: null,
-    })
+    function submitForm() {
 
-    function verifyUserInput() {
-
-        validateFormInput('name');
-
-        if (errors.value.name) {
-            isSubmittable.value = false;
-            return;
-        }
-        else {
+        if (isVerifiedInput()) {
 
             if (props.isCreateMode) {
                 emit('storeAsset', props.singleAssetData);
@@ -96,6 +90,19 @@
                 emit('updateAsset', props.singleAssetData)
             }
 
+        }
+
+    }
+
+    function isVerifiedInput() {
+
+        validateFormInput('name');
+
+        if (props.validationErrors.name) {
+            return false;
+        }
+        else {
+            return true;
         }
 
     }
@@ -110,14 +117,14 @@
 
                 if (props.singleAssetData.name.length < 1) {
                     // console.log(props.singleAssetData.name.length);
-                    errors.value.name = 'Name is required';
+                    props.validationErrors.name = 'Name is required';
                 }
                 else if (! props.singleAssetData.name.match(/^[a-zA-Z0-9-_ ]+$/)) {
-                    errors.value.name = 'No special character is allowed';
+                    props.validationErrors.name = 'No special character is allowed';
                 }
                 else{
                     isSubmittable.value = true;
-                    errors.value.name = null;
+                    props.validationErrors.name = null;
                 }
 
                 break;

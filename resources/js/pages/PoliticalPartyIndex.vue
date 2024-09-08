@@ -62,6 +62,7 @@
                 :is-submitted="isSubmitted"
                 :is-create-mode="isCreateMode"
                 :single-asset-data="singleAssetData"
+                :validation-errors="errors"
 
                 @store-asset="storeAsset"
 			    @update-asset="updateAsset"
@@ -100,6 +101,10 @@
     const isCreateMode = ref(true)
 
     const singleAssetData = ref({
+        name : ""
+    })
+
+    const errors = ref({
         name : ""
     })
 
@@ -147,9 +152,8 @@
     function showStoreForm() {
         isCreateMode.value = true;
 
-        singleAssetData.value = {
-            name : ""
-        };
+        resetErrorObject();
+        resetSingleAssetObject();
 
         createOrEditModal.value.show();
     }
@@ -164,20 +168,21 @@
                     toast.success("New party has been created");
                     allContents.value = response.data.data;
                     createOrEditModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toastr.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : ""
-                };
             });
 
     }
@@ -197,20 +202,21 @@
                     toast.success("Party has been updated");
                     allContents.value = response.data.data;
                     createOrEditModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : ""
-                };
             });
 
     }
@@ -229,21 +235,32 @@
                     toast.success("Party has been deleted");
                     allContents.value = response.data.data;
                     deleteConfirmationModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    name : ""
-                };
             });
 
+    }
+    function resetSingleAssetObject() {
+        singleAssetData.value = {
+            name : ""
+        };
+    }
+    function resetErrorObject() {
+        errors.value = {
+            name : null
+        };
     }
 </script>

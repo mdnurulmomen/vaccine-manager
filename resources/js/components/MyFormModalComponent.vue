@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    v-on:submit.prevent="verifyUserInput"
+                    v-on:submit.prevent="submitForm()"
                     autocomplete="off"
                 >
                     <div class="modal-header">
@@ -17,7 +17,7 @@
                             <label class="form-label">Choose {{ $filters.capitalize(elementName) }}</label>
                             <select
                                 v-model="singleAssetData.asset_id"
-                                :class="['form-control', errors.name  ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', props.validationErrors.name ? 'is-invalid' : 'is-valid']"
                                 :disabled="isSubmitted"
                                 required="true"
                             >
@@ -28,7 +28,7 @@
                                     {{ $filters.capitalize(asset.name) }}
                                 </option>
                             </select>
-                            <div class="text-danger" v-show="errors.name">{{ errors.name }}</div>
+                            <div class="text-danger" v-show="props.validationErrors.name">{{ props.validationErrors.name }}</div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -36,7 +36,7 @@
                         <button
                             type="submit"
                             class="btn btn-success"
-                            :disabled="! isSubmittable || isSubmitted"
+                            :disabled="! isSubmittable || isSubmitted || Object.keys(props.validationErrors).some(key => props.validationErrors[key])"
                         >
                             Add
                         </button>
@@ -68,10 +68,14 @@
             type: Array,
             required: true,
             default: []
+        },
+        validationErrors: {
+            type: Object,
+            required: true
         }
     })
 
-    const emit = defineEmits(['storeAsset', 'updateAsset'])
+    const emit = defineEmits(['storeMyAsset'])
 
     onMounted(() => {
         // console.log('Add Button Component mounted.')
@@ -79,22 +83,25 @@
 
     const isSubmittable = ref(true)
 
-    const errors = ref({
-        name: null,
-    })
+    function submitForm() {
 
-    function verifyUserInput() {
-
-        validateFormInput('name');
-
-        if (errors.value.name) {
-            isSubmittable.value = false;
-            return;
-        }
-        else {
+        if (isVerifiedInput()) {
 
             emit('storeMyAsset', props.singleAssetData);
 
+        }
+
+    }
+
+    function isVerifiedInput() {
+
+        validateFormInput('name');
+
+        if (props.validationErrors.name) {
+            return false;
+        }
+        else {
+            return true;
         }
 
     }
@@ -109,11 +116,11 @@
 
                 if (! props.singleAssetData.asset_id) {
                     // console.log(props.singleAssetData.name.length);
-                    errors.value.name = 'This is required';
+                    props.validationErrors.name = 'This is required';
                 }
                 else{
                     isSubmittable.value = true;
-                    errors.value.name = null;
+                    props.validationErrors.name = null;
                 }
 
                 break;

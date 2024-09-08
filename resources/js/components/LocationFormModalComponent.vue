@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    v-on:submit.prevent="verifyUserInput"
+                    v-on:submit.prevent="submitForm()"
                     autocomplete="off"
                 >
                     <div class="modal-header">
@@ -18,14 +18,18 @@
                             <input
                                 v-model="singleAssetData.name"
                                 type="text"
-                                :class="['form-control', errors.name ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', props.validationErrors.name ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input name"
                                 @change="validateFormInput('name')"
                                 :disabled="isSubmitted"
                                 required="true"
                             >
-                            <div class="text-danger" v-show="errors.name">
-                                {{ errors.name }}
+
+                            <div
+                                class="text-danger"
+                                v-show="props.validationErrors.name"
+                            >
+                                {{ props.validationErrors.name }}
                             </div>
                         </div>
 
@@ -34,15 +38,18 @@
                             <input
                                 v-model="singleAssetData.latitude"
                                 type="number"
-                                :class="['form-control', errors.latitude ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', props.validationErrors.latitude ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input latitude"
                                 @change="validateFormInput('latitude')"
                                 :disabled="isSubmitted"
                                 required="true"
                                 step=".001"
                             >
-                            <div class="text-danger" v-show="errors.latitude">
-                                {{ errors.latitude }}
+                            <div
+                                class="text-danger"
+                                v-show="props.validationErrors.latitude"
+                            >
+                                {{ props.validationErrors.latitude }}
                             </div>
                         </div>
 
@@ -51,20 +58,19 @@
                             <input
                                 v-model="singleAssetData.longitude"
                                 type="number"
-                                :class="['form-control', errors.longitude ? 'is-invalid' : 'is-valid']"
+                                :class="['form-control', props.validationErrors.longitude ? 'is-invalid' : 'is-valid']"
                                 placeholder="Please input longitude"
                                 @change="validateFormInput('longitude')"
                                 :disabled="isSubmitted"
                                 required="true"
                                 step=".001"
                             >
-                            <div class="text-danger" v-show="errors.longitude">
-                                {{ errors.longitude }}
+                            <div
+                                class="text-danger"
+                                v-show="props.validationErrors.longitude"
+                            >
+                                {{ props.validationErrors.longitude }}
                             </div>
-                        </div>
-
-                        <div class="text-danger text-center" v-show="errorMessage">
-                            {{ errorMessage }}
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -72,7 +78,7 @@
                         <button
                             type="submit"
                             :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
-                            :disabled="! isSubmittable || isSubmitted || props.errorMessage"
+                            :disabled="! isSubmittable || isSubmitted || Object.keys(props.validationErrors).some(key => props.validationErrors[key])"
                         >
                             Save
                         </button>
@@ -104,10 +110,14 @@
             type: Object,
             required: true
         },
-        errorMessage: {
+        validationErrors: {
             type: Object,
-            default: null
-        },
+            default: {
+                name: null,
+                latitude: null,
+                longitude: null,
+            }
+        }
     })
 
     const emit = defineEmits(['storeAsset', 'updateAsset'])
@@ -118,29 +128,9 @@
 
     const isSubmittable = ref(true)
 
-    const errors = ref({
-        name: null,
-        latitude: null,
-        longitude: null,
-    })
+    function submitForm() {
 
-    function verifyUserInput() {
-
-        validateFormInput('name');
-        validateFormInput('latitude');
-        validateFormInput('longitude');
-
-        if (errors.value.name) {
-            isSubmittable.value = false;
-            return;
-        } else if (errors.value.latitude) {
-            isSubmittable.value = false;
-            return;
-        } else if (errors.value.longitude) {
-            isSubmittable.value = false;
-            return;
-        } else {
-            isSubmittable.value = true;
+        if (isVerifiedInput()) {
 
             if (props.isCreateMode) {
                 emit('storeAsset', props.singleAssetData);
@@ -154,6 +144,24 @@
 
     }
 
+    function isVerifiedInput() {
+
+        validateFormInput('name');
+        validateFormInput('latitude');
+        validateFormInput('longitude');
+
+        if (props.validationErrors.name) {
+            return false;
+        } else if (props.validationErrors.latitude) {
+            return false;
+        } else if (props.validationErrors.longitude) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     function validateFormInput(formInputName) {
 
         isSubmittable.value = false;
@@ -163,14 +171,14 @@
             case 'name' :
 
                 if (props.singleAssetData.name.length < 1) {
-                    errors.value.name = 'Name is required';
+                    props.validationErrors.name = 'Name is required';
                 }
                 else if (! props.singleAssetData.name.match(/^[a-zA-Z0-9-_ ]+$/)) {
-                    errors.value.name = 'No special character is allowed';
+                    props.validationErrors.name = 'No special character is allowed';
                 }
                 else{
                     isSubmittable.value = true;
-                    errors.value.name = null;
+                    props.validationErrors.name = null;
                 }
 
                 break;
@@ -178,11 +186,11 @@
             case 'latitude' :
 
                 if (props.singleAssetData.latitude.length < 1) {
-                    errors.value.latitude = 'Latitude is required';
+                    props.validationErrors.latitude = 'Latitude is required';
                 }
                 else{
                     isSubmittable.value = true;
-                    errors.value.latitude = null;
+                    props.validationErrors.latitude = null;
                 }
 
                 break;
@@ -190,11 +198,11 @@
             case 'longitude' :
 
                 if (props.singleAssetData.longitude.length < 1) {
-                    errors.value.longitude = 'Longitude is required';
+                    props.validationErrors.longitude = 'Longitude is required';
                 }
                 else{
                     isSubmittable.value = true;
-                    errors.value.longitude = null;
+                    props.validationErrors.longitude = null;
                 }
 
                 break;

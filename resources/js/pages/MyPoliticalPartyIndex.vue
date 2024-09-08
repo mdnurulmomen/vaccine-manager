@@ -55,6 +55,7 @@
                 :available-assets="allAvailableAssets"
                 :is-submitted="isSubmitted"
                 :single-asset-data="singleAssetData"
+                :validation-errors="errors"
 
                 @store-my-asset="storeMyAsset"
             />
@@ -96,6 +97,10 @@
     const singleAssetData = ref({
         political_party_id : "",
         user_id : JSON.parse(window.localStorage.getItem('user')).id,
+    })
+
+    const errors = ref({
+        name : null
     })
 
     const user = ref(JSON.parse(window.localStorage.getItem('user')))
@@ -181,10 +186,8 @@
     }
     function showStoreForm() {
 
-        singleAssetData.value = {
-            political_party_id : "",
-            user_id : user.value.id,
-        };
+        resetErrorObject();
+        resetSingleAssetObject();
 
         myPreferenceAddModal.value.show();
     }
@@ -200,21 +203,21 @@
                     toast.success("Selected party has been added");
                     myAllContents.value = response.data.data;
                     myPreferenceAddModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    political_party_id : "",
-                    user_id : user.value.id,
-                };
             });
 
     }
@@ -233,22 +236,33 @@
                     toast.success("Selected party has been removed");
                     myAllContents.value = response.data.data;
                     deleteConfirmationModal.value.hide();
+                    resetSingleAssetObject();
                 }
             })
             .catch(error => {
                 if (error.response.status == 422) {
+                    resetErrorObject();
+
                     for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x]);
+                        toast.warning(error.response.data.errors[x][0]);
+                        errors.value[x] = error.response.data.errors[x][0];
                     }
                 }
             })
             .finally(response => {
                 isSubmitted.value = false;
-                singleAssetData.value = {
-                    political_party_id : "",
-                    user_id : user.value.id,
-                };
             });
 
+    }
+    function resetSingleAssetObject() {
+        singleAssetData.value = {
+            political_party_id : "",
+            user_id : user.value.id,
+        };
+    }
+    function resetErrorObject() {
+        errors.value = {
+            name : null
+        };
     }
 </script>
