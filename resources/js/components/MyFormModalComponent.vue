@@ -13,22 +13,30 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div
+                            class="mb-3"
+                            v-for="singleAssetFieldName in Object.keys(props.singleAssetData)"
+                        >
                             <label class="form-label">Choose {{ $filters.capitalize(elementName) }}</label>
                             <select
-                                v-model="singleAssetData.asset_id"
-                                :class="['form-control', props.validationErrors.name ? 'is-invalid' : 'is-valid']"
+                                v-model="singleAssetData[singleAssetFieldName]"
+                                :class="['form-control', props.validationErrors[singleAssetFieldName] ? 'is-invalid' : 'is-valid']"
                                 :disabled="isSubmitted"
-                                required="true"
+                                @change="validateFormInput(singleAssetFieldName)"
                             >
-                                <option disabled value="">Please select {{ $filters.capitalize(elementName) }}</option>
+                                <option disabled value="">Please select one</option>
                                 <option
                                     v-for="asset in props.availableAssets" :value="asset.id"
                                 >
                                     {{ $filters.capitalize(asset.name) }}
                                 </option>
                             </select>
-                            <div class="text-danger" v-show="props.validationErrors.name">{{ props.validationErrors.name }}</div>
+                            <div
+                                class="text-danger"
+                                v-show="props.validationErrors[singleAssetFieldName]"
+                            >
+                                {{ props.validationErrors[singleAssetFieldName] }}
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -95,32 +103,38 @@
 
     function isVerifiedInput() {
 
-        validateFormInput('name');
+        for (let singleAssetFieldName in props.singleAssetData) {
 
-        if (props.validationErrors.name) {
-            return false;
-        }
-        else {
-            return true;
+            validateFormInput(singleAssetFieldName);
+
+            if (props.validationErrors[singleAssetFieldName]) {
+                return false;
+            }
+            else {
+                return true;
+            }
+
         }
 
     }
 
     function validateFormInput(formInputName) {
 
+        console.log(formInputName);
+
         isSubmittable.value = false;
 
         switch(formInputName) {
 
-            case 'name' :
+            case formInputName :
 
-                if (! props.singleAssetData.asset_id) {
+                if (! props.singleAssetData[formInputName]) {
                     // console.log(props.singleAssetData.name.length);
-                    props.validationErrors.name = 'This is required';
+                    props.validationErrors[formInputName] = 'This is required';
                 }
                 else{
                     isSubmittable.value = true;
-                    props.validationErrors.name = null;
+                    props.validationErrors[formInputName] = null;
                 }
 
                 break;

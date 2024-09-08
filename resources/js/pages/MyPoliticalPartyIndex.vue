@@ -95,15 +95,12 @@
     const isSubmitted = ref(false)
 
     const singleAssetData = ref({
-        political_party_id : "",
-        user_id : JSON.parse(window.localStorage.getItem('user')).id,
+        political_party_id : ""
     })
 
     const errors = ref({
-        name : null
+        political_party_id : null
     })
-
-    const user = ref(JSON.parse(window.localStorage.getItem('user')))
 
     const myPreferenceAddModal = ref(null)
     const deleteConfirmationModal = ref(null)
@@ -194,7 +191,6 @@
     function storeMyAsset() {
 
         isSubmitted.value = true;
-        singleAssetData.value.political_party_id = singleAssetData.value.asset_id;
 
         axios
             .post('api/v1/user-political-parties/', singleAssetData.value)
@@ -256,13 +252,12 @@
     }
     function resetSingleAssetObject() {
         singleAssetData.value = {
-            political_party_id : "",
-            user_id : user.value.id,
+            political_party_id : ""
         };
     }
     function resetErrorObject() {
         errors.value = {
-            name : null
+            political_party_id : null
         };
     }
 </script>

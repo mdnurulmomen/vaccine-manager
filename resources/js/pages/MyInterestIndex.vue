@@ -95,15 +95,14 @@
     const isSubmitted = ref(false)
 
     const singleAssetData = ref({
-        interest_id : "",
-        user_id : JSON.parse(window.localStorage.getItem('user')).id,
+        interest_id : ""
     })
 
     const errors = ref({
-        name : null
+        interest_id : null
     })
 
-    const user = ref(JSON.parse(window.localStorage.getItem('user')))
+    // const user = ref(JSON.parse(window.localStorage.getItem('user')))
 
     const myPreferenceAddModal = ref(null)
     const deleteConfirmationModal = ref(null)
@@ -194,7 +193,6 @@
     function storeMyAsset() {
 
         isSubmitted.value = true;
-        singleAssetData.value.interest_id = singleAssetData.value.asset_id;
 
         axios
             .post('api/v1/user-interests/', singleAssetData.value)
@@ -257,12 +255,11 @@
     function resetSingleAssetObject() {
         singleAssetData.value = {
             interest_id : "",
-            user_id : user.value.id,
         };
     }
     function resetErrorObject() {
         errors.value = {
-            name : ""
+            interest_id : null
         };
     }
 </script>

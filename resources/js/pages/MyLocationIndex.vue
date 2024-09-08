@@ -95,15 +95,14 @@
     const isSubmitted = ref(false)
 
     const singleAssetData = ref({
-        location_id : "",
-        user_id : JSON.parse(window.localStorage.getItem('user')).id,
+        location_id : ""
     })
 
     const errors = ref({
-        name : null
+        location_id : null
     })
 
-    const user = ref(JSON.parse(window.localStorage.getItem('user')))
+    // const user = ref(JSON.parse(window.localStorage.getItem('user')))
 
     const myPreferenceAddModal = ref(null)
     const deleteConfirmationModal = ref(null)
@@ -194,7 +193,6 @@
     function storeMyAsset() {
 
         isSubmitted.value = true;
-        singleAssetData.value.location_id = singleAssetData.value.asset_id;
 
         axios
             .post('api/v1/user-locations/', singleAssetData.value)
@@ -257,12 +255,11 @@
     function resetSingleAssetObject() {
         singleAssetData.value = {
             location_id : "",
-            user_id : user.value.id,
         };
     }
     function resetErrorObject() {
         errors.value = {
-            name : ""
+            location_id : null
         };
     }
 </script>

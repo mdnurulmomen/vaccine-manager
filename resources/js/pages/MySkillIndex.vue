@@ -95,15 +95,14 @@
     const isSubmitted = ref(false)
 
     const singleAssetData = ref({
-        skill_id : "",
-        user_id : JSON.parse(window.localStorage.getItem('user')).id,
+        skill_id : ""
     })
 
     const errors = ref({
-        name : null
+        skill_id : null
     })
 
-    const user = ref(JSON.parse(window.localStorage.getItem('user')))
+    // const user = ref(JSON.parse(window.localStorage.getItem('user')))
 
     const myPreferenceAddModal = ref(null)
     const deleteConfirmationModal = ref(null)
@@ -194,7 +193,6 @@
     function storeMyAsset() {
 
         isSubmitted.value = true;
-        singleAssetData.value.skill_id = singleAssetData.value.asset_id;
 
         axios
             .post('api/v1/user-skills/', singleAssetData.value)
@@ -256,13 +254,12 @@
     }
     function resetSingleAssetObject() {
         singleAssetData.value = {
-            skill_id : "",
-            user_id : user.value.id,
+            skill_id : ""
         };
     }
     function resetErrorObject() {
         errors.value = {
-            name : null
+            skill_id : null
         };
     }
 </script>
