@@ -12,46 +12,18 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="row text-center">
-                                    <th class="col">#</th>
-                                    <th class="col">Name</th>
-                                    <th class="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody v-if="allContents.length">
-                                <tr v-for="(content, index) in allContents" class="row text-center">
-                                    <td class="col">{{ index+1 }}</td>
-                                    <td class="col">{{ content.name }}</td>
-                                    <td class="col">
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-primary"
-                                            @click="showContentEditForm(content)"
-                                        >
-                                            Edit
-                                        </button>
+                        <index-table-component
+                            element-name="skill"
+                            :contents="allContents"
+                            :column-names="['name']"
+                            :has-actions="true"
+                            :action-button-names="['edit', 'delete']"
+                            :action-button-class-names="['btn-outline-primary', 'btn-outline-danger']"
+                            :action-button-emitting-method-names="['showContentEditForm', 'showContentDeleteConfirmationForm']"
 
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-danger ms-2"
-                                            @click="showContentDeleteConfirmationForm(content)"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                            <tbody v-else>
-                                <tr>
-                                    <th class="text-center" colspan="3">
-                                        <span class="text-danger">No Skills Found</span>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+                            @show-content-edit-form="showContentEditForm"
+                            @show-content-delete-confirmation-form="showContentDeleteConfirmationForm"
+                        />
                     </div>
                 </div>
             </div>

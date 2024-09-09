@@ -12,38 +12,17 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="row text-center">
-                                    <th class="col">#</th>
-                                    <th class="col">Name</th>
-                                    <th class="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody v-if="myAllContents.length">
-                                <tr v-for="(content, index) in myAllContents" class="row text-center">
-                                    <td class="col">{{ index+1 }}</td>
-                                    <td class="col">{{ content.interest ? content.interest.name : 'NA' }}</td>
-                                    <td class="col">
-                                        <button
-                                            type="button"
-                                            class="btn btn-outline-danger ms-2"
-                                            @click="showContentDeleteConfirmationForm(content)"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <index-table-component
+                            element-name="interest"
+                            :contents="myAllContents"
+                            :column-names="['name']"
+                            :has-actions="true"
+                            :action-button-names="['delete']"
+                            :action-button-class-names="['btn-outline-danger']"
+                            :action-button-emitting-method-names="['showContentDeleteConfirmationForm']"
 
-                            <tbody v-else>
-                                <tr>
-                                    <th class="text-center" colspan="3">
-                                        <span class="text-danger">No Interests Found</span>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+                            @show-content-delete-confirmation-form="showContentDeleteConfirmationForm"
+                        />
                     </div>
                 </div>
             </div>
