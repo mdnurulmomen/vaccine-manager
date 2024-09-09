@@ -107,20 +107,18 @@
 
             validateFormInput(singleAssetFieldName);
 
-            if (props.validationErrors[singleAssetFieldName]) {
-                return false;
-            }
-            else {
-                return true;
-            }
+        }
 
+        if (Object.keys(props.validationErrors).some(key => props.validationErrors[key])) {
+            return false;
+        }
+        else {
+            return true;
         }
 
     }
 
     function validateFormInput(formInputName) {
-
-        console.log(formInputName);
 
         isSubmittable.value = false;
 
@@ -129,7 +127,6 @@
             case formInputName :
 
                 if (! props.singleAssetData[formInputName]) {
-                    // console.log(props.singleAssetData.name.length);
                     props.validationErrors[formInputName] = 'This is required';
                 }
                 else{
