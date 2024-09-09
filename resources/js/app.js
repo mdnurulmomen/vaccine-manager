@@ -21,6 +21,7 @@ import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
 
 /* Importing Global Components */
+import IndexTableComponent from './components/IndexTableComponent.vue';
 import MyFormModalComponent from './components/MyFormModalComponent.vue';
 import NameFormModalComponent from './components/NameFormModalComponent.vue';
 import LocationFormModalComponent from './components/LocationFormModalComponent.vue';
@@ -28,6 +29,7 @@ import DeleteConfirmationComponent from './components/DeleteConfirmationComponen
 import ThreeGridsWithAddButtonComponent from './components/ThreeGridsWithAddButtonComponent.vue';
 
 /* Registering Components Globally */
+app.component('index-table-component', IndexTableComponent);
 app.component('my-form-modal-component', MyFormModalComponent);
 app.component('name-form-modal-component', NameFormModalComponent);
 app.component('location-form-modal-component', LocationFormModalComponent);
