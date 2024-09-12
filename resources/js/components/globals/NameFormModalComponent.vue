@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="my-preference-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="name-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
@@ -8,7 +8,7 @@
                 >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            Add New {{ $filters.capitalize(elementName) }}
+                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $filters.capitalizeEachWord(elementName) }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -17,20 +17,16 @@
                             class="mb-3"
                             v-for="singleAssetFieldName in Object.keys(props.singleAssetData)"
                         >
-                            <label class="form-label">Choose {{ $filters.capitalize(elementName) }}</label>
-                            <select
+                            <label class="form-label">{{ $filters.capitalizeEachWord(elementName) }} {{ $filters.capitalizeEachWord(singleAssetFieldName) }}</label>
+                            <input
                                 v-model="singleAssetData[singleAssetFieldName]"
+                                type="text"
                                 :class="['form-control', props.validationErrors[singleAssetFieldName] ? 'is-invalid' : 'is-valid']"
-                                :disabled="isSubmitted"
+                                :placeholder="`Please input ${singleAssetFieldName}`"
                                 @change="validateFormInput(singleAssetFieldName)"
+                                :disabled="isSubmitted"
+                                required="true"
                             >
-                                <option disabled value="">Please select one</option>
-                                <option
-                                    v-for="asset in props.availableAssets" :value="asset.id"
-                                >
-                                    {{ $filters.capitalize(asset.name) }}
-                                </option>
-                            </select>
                             <div
                                 class="text-danger"
                                 v-show="props.validationErrors[singleAssetFieldName]"
@@ -43,10 +39,10 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button
                             type="submit"
-                            class="btn btn-success"
+                            :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
                             :disabled="! isSubmittable || isSubmitted || Object.keys(props.validationErrors).some(key => props.validationErrors[key])"
                         >
-                            Add
+                            Save
                         </button>
                     </div>
                 </form>
@@ -64,6 +60,10 @@
             type: Boolean,
             default: false
         },
+        isCreateMode: {
+            type: Boolean,
+            default: true
+        },
         elementName: {
             type: String,
             required: true
@@ -72,18 +72,13 @@
             type: Object,
             required: true
         },
-        availableAssets: {
-            type: Array,
-            required: true,
-            default: []
-        },
         validationErrors: {
             type: Object,
             required: true
         }
     })
 
-    const emit = defineEmits(['storeMyAsset'])
+    const emit = defineEmits(['storeAsset', 'updateAsset'])
 
     onMounted(() => {
         // console.log('Add Button Component mounted.')
@@ -95,7 +90,13 @@
 
         if (isVerifiedInput()) {
 
-            emit('storeMyAsset', props.singleAssetData);
+            if (props.isCreateMode) {
+                emit('storeAsset', props.singleAssetData);
+            }
+
+            else {
+                emit('updateAsset', props.singleAssetData)
+            }
 
         }
 

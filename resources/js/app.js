@@ -6,7 +6,7 @@
 
 import './bootstrap';
 
-import { capitalize, createApp } from 'vue';
+import { createApp } from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -20,69 +20,25 @@ const app = createApp({});
 import MenuBar from './pages/MenuBar.vue';
 app.component('menu-bar', MenuBar);
 
-/* Importing Global Components */
-import IndexTableComponent from './components/IndexTableComponent.vue';
-import MyFormModalComponent from './components/MyFormModalComponent.vue';
-import NameFormModalComponent from './components/NameFormModalComponent.vue';
-import LocationFormModalComponent from './components/LocationFormModalComponent.vue';
-import DeleteConfirmationComponent from './components/DeleteConfirmationComponent.vue';
-import ThreeGridsWithAddButtonComponent from './components/ThreeGridsWithAddButtonComponent.vue';
+/* Importing Global Components dynamically */
+const globalComponents = import.meta.glob('./components/globals/*.vue', { eager: true });
 
-/* Registering Components Globally */
-app.component('index-table-component', IndexTableComponent);
-app.component('my-form-modal-component', MyFormModalComponent);
-app.component('name-form-modal-component', NameFormModalComponent);
-app.component('location-form-modal-component', LocationFormModalComponent);
-app.component('delete-confirmation-component', DeleteConfirmationComponent);
-app.component('three-grids-with-add-button-component', ThreeGridsWithAddButtonComponent);
+const camelToKebab = str => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 
-/* Import Pages */
-import Home from './pages/Home.vue';
-import SkillIndex from './pages/SkillIndex.vue';
-import MySkillIndex from './pages/MySkillIndex.vue';
-import InterestIndex from './pages/InterestIndex.vue';
-import MyInterestIndex from './pages/MyInterestIndex.vue';
-import LocationIndex from './pages/LocationIndex.vue';
-import MyLocationIndex from './pages/MyLocationIndex.vue';
-import PoliticalPartyIndex from './pages/PoliticalPartyIndex.vue';
-import MyPoliticalPartyIndex from './pages/MyPoliticalPartyIndex.vue';
+Object.entries(globalComponents).forEach(([key, value]) => {
+    // "./components/FruitComponent.vue" will become "fruit-component"
+    const componentNameInKebabForm = camelToKebab(key.split('/').pop().replace(/\.\w+$/, ''))
+    /* Registering Global Components dynamically */
+    app.component(componentNameInKebabForm, value.default)
+})
 
-const routes = [
-    { path: '/', redirect: '/home' },
-    { path: '/home', name:'home', component: Home },
-    { path: '/skills', name:'skills.index', component: SkillIndex },
-    { path: '/my-skills', name:'my-skills.index', component: MySkillIndex },
-    { path: '/interests', name:'interests.index', component: InterestIndex },
-    { path: '/my-interests', name:'my-interests.index', component: MyInterestIndex },
-    { path: '/locations', name:'locations.index', component: LocationIndex },
-    { path: '/my-locations', name:'my-locations.index', component: MyLocationIndex },
-    { path: '/political-parties', name:'political-parties.index', component: PoliticalPartyIndex },
-    { path: '/my-political-parties', name:'my-political-parties.index', component: MyPoliticalPartyIndex },
-];
-
-import { createWebHistory, createRouter } from 'vue-router';
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
-
+import router from './routes';      // exported default
 app.use(router);
 
 /* Global Filters */
+import { capitalizeEachWord } from './filters';        // exported modules
 app.config.globalProperties.$filters = {
-    capitalize(value) {
-        if (!value) return '';
-
-        /* Each Word Capitalization */
-        const words = value.split("-");
-
-        for (let i = 0; i < words.length; i++) {
-            words[i] = words[i][0].toUpperCase() + words[i].substr(1);
-        }
-
-        return words.join(" ");
-    }
+    capitalizeEachWord
 }
 
 /**
