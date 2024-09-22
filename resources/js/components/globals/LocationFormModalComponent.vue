@@ -8,13 +8,13 @@
                 >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $filters.capitalizeEachWord(elementName) }}
+                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $helpers.capitalizeEachWord(elementName) }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label">{{ $filters.capitalizeEachWord(elementName) }} Name</label>
+                            <label class="form-label">{{ $helpers.capitalizeEachWord(elementName) }} Name</label>
                             <input
                                 v-model="singleAssetData.name"
                                 type="text"
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">{{ $filters.capitalizeEachWord(elementName) }} Latitude</label>
+                            <label class="form-label">{{ $helpers.capitalizeEachWord(elementName) }} Latitude</label>
                             <input
                                 v-model="singleAssetData.latitude"
                                 type="number"
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">{{ $filters.capitalizeEachWord(elementName) }} Longitude</label>
+                            <label class="form-label">{{ $helpers.capitalizeEachWord(elementName) }} Longitude</label>
                             <input
                                 v-model="singleAssetData.longitude"
                                 type="number"

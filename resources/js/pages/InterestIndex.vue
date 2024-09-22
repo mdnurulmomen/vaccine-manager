@@ -30,7 +30,7 @@
         </div>
 
         <div class="row">
-            <name-form-modal-component
+            <dynamic-form-modal-component
                 element-name="interest"
                 :is-submitted="isSubmitted"
                 :is-create-mode="isCreateMode"
@@ -62,7 +62,7 @@
     onMounted(async () => {
         fetchAllContents();
         // console.log('Interest List mounted.')
-        createOrEditModal.value = new Modal('#name-form-modal', {})
+        createOrEditModal.value = new Modal('#dynamic-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })
 

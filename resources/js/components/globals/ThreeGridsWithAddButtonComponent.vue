@@ -1,12 +1,12 @@
 <template>
     <div class="row">
         <div class="col-xs-4 col-md-4">
-            Available {{ elementName.slice(-1)=='y' ? ($filters.capitalizeEachWord(elementName.replace(/.$/,"ies"))) : ($filters.capitalizeEachWord(elementName) + "'s") }}
+            Available {{ elementName.slice(-1)=='y' ? ($helpers.capitalizeEachWord(elementName.replace(/.$/,"ies"))) : ($helpers.capitalizeEachWord(elementName) + "'s") }}
         </div>
         <div class="col-xs-4 col-md-4 text-center"></div>
         <div class="col-xs-4 col-md-4 text-end">
             <button type="button" class="btn btn-success" @click="showStoreForm">
-                Add {{ $filters.capitalizeEachWord(elementName) }}
+                Add {{ $helpers.capitalizeEachWord(elementName) }}
             </button>
         </div>
     </div>

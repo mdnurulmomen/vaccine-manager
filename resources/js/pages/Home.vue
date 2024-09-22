@@ -17,7 +17,7 @@
                             <tbody v-if="allContents.length">
                                 <tr v-for="(content, index) in allContents" class="row text-center">
                                     <td class="col">{{ index+1 }}</td>
-                                    <td class="col">{{ $filters.capitalizeEachWord(content.name) }}</td>
+                                    <td class="col">{{ $helpers.capitalizeEachWord(content.name) }}</td>
                                     <td class="col">{{ content.email }}</td>
                                 </tr>
                             </tbody>

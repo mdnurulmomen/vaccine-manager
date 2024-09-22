@@ -16,7 +16,7 @@
 					</div>
 
 					<div class="modal-body text-center">
-						<h4 class="text-danger">Want to delete {{ props.contentToDelete.name ? ("'" + $filters.capitalizeEachWord(props.contentToDelete.name) + "'") : '' }} ?</h4>
+						<h4 class="text-danger">Want to delete {{ props.contentToDelete.name ? ("'" + $helpers.capitalizeEachWord(props.contentToDelete.name) + "'") : '' }} ?</h4>
 						<h6 class="sub-heading text-secondary">{{ restorationMessage }}</h6>
 					</div>
 

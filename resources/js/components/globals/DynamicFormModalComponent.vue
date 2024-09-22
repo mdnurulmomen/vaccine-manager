@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="name-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="dynamic-form-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
@@ -8,7 +8,7 @@
                 >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $filters.capitalizeEachWord(elementName) }}
+                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $helpers.capitalizeEachWord(elementName) }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -17,7 +17,7 @@
                             class="mb-3"
                             v-for="singleAssetFieldName in Object.keys(props.singleAssetData)"
                         >
-                            <label class="form-label">{{ $filters.capitalizeEachWord(elementName) }} {{ $filters.capitalizeEachWord(singleAssetFieldName) }}</label>
+                            <label class="form-label">{{ $helpers.capitalizeEachWord(elementName) }} {{ $helpers.capitalizeEachWord(singleAssetFieldName) }}</label>
                             <input
                                 v-model="singleAssetData[singleAssetFieldName]"
                                 type="text"

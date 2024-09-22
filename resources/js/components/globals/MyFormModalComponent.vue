@@ -8,7 +8,7 @@
                 >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            Add New {{ $filters.capitalizeEachWord(elementName) }}
+                            Add New {{ $helpers.capitalizeEachWord(elementName) }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -17,7 +17,7 @@
                             class="mb-3"
                             v-for="singleAssetFieldName in Object.keys(props.singleAssetData)"
                         >
-                            <label class="form-label">Choose {{ $filters.capitalizeEachWord(elementName) }}</label>
+                            <label class="form-label">Choose {{ $helpers.capitalizeEachWord(elementName) }}</label>
                             <select
                                 v-model="singleAssetData[singleAssetFieldName]"
                                 :class="['form-control', props.validationErrors[singleAssetFieldName] ? 'is-invalid' : 'is-valid']"
@@ -28,7 +28,7 @@
                                 <option
                                     v-for="asset in props.availableAssets" :value="asset.id"
                                 >
-                                    {{ $filters.capitalizeEachWord(asset.name) }}
+                                    {{ $helpers.capitalizeEachWord(asset.name) }}
                                 </option>
                             </select>
                             <div

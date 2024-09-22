@@ -8,7 +8,7 @@
                     class="col"
                     v-for="columnName in props.columnNames"
                 >
-                    {{ $filters.capitalizeEachWord(columnName) }}
+                    {{ $helpers.capitalizeEachWord(columnName) }}
                 </th>
 
                 <th
@@ -45,7 +45,7 @@
                         :class="['btn', actionButtonClassNames[index], 'me-2']"
                         @click="$emit(actionButtonEmittingMethodNames[index], content)"
                     >
-                        {{ $filters.capitalizeEachWord(actionButtonName) }}
+                        {{ $helpers.capitalizeEachWord(actionButtonName) }}
                     </button>
                 </td>
             </tr>
@@ -57,7 +57,7 @@
                     class="text-center"
                     :colspan="props.hasActions ? (columnNames.length+2) : (columnNames.length+1)"
                 >
-                    <span class="text-danger">No {{ $filters.capitalizeEachWord(elementName) }} Found</span>
+                    <span class="text-danger">No {{ $helpers.capitalizeEachWord(elementName) }} Found</span>
                 </th>
             </tr>
         </tbody>
