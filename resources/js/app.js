@@ -35,11 +35,16 @@ Object.entries(globalComponents).forEach(([key, value]) => {
 import router from './routes';      // exported default
 app.use(router);
 
-/* Global Filters */
-import { capitalizeEachWord } from './filters';        // exported modules
-app.config.globalProperties.$filters = {
+/* Global Helper-Functions */
+import { capitalizeEachWord } from './helpers';        // exported modules
+app.config.globalProperties.$helpers = {
     capitalizeEachWord
 }
+
+/* Store */
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+app.use(pinia)
 
 /**
  * The following block of code may be used to automatically register your
