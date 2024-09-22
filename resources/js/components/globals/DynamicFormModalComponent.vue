@@ -8,30 +8,32 @@
                 >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            {{ (isCreateMode ? 'Add New' : 'Edit') }} {{ $helpers.capitalizeEachWord(elementName) }}
+                            {{ (generalStore.isCreateMode ? 'Add New' : 'Edit') }} {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div
                             class="mb-3"
-                            v-for="singleAssetFieldName in Object.keys(props.singleAssetData)"
+                            v-for="propertyName in generalStore.currentEntityShowableProperties"
                         >
-                            <label class="form-label">{{ $helpers.capitalizeEachWord(elementName) }} {{ $helpers.capitalizeEachWord(singleAssetFieldName) }}</label>
+                            <label class="form-label">
+                                {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }} {{ $helpers.capitalizeEachWord(propertyName) }}
+                            </label>
                             <input
-                                v-model="singleAssetData[singleAssetFieldName]"
+                                v-model="generalStore.currentEntity[propertyName]"
                                 type="text"
-                                :class="['form-control', props.validationErrors[singleAssetFieldName] ? 'is-invalid' : 'is-valid']"
-                                :placeholder="`Please input ${singleAssetFieldName}`"
-                                @change="validateFormInput(singleAssetFieldName)"
-                                :disabled="isSubmitted"
+                                :class="['form-control', generalStore.errors[propertyName] ? 'is-invalid' : 'is-valid']"
+                                :placeholder="`Please input ${propertyName}`"
+                                @change="validateFormInput(propertyName)"
+                                :disabled="generalStore.isSubmitted"
                                 required="true"
                             >
                             <div
                                 class="text-danger"
-                                v-show="props.validationErrors[singleAssetFieldName]"
+                                v-show="generalStore.errors[propertyName]"
                             >
-                                {{ props.validationErrors[singleAssetFieldName] }}
+                                {{ generalStore.errors[propertyName] }}
                             </div>
                         </div>
                     </div>
@@ -39,8 +41,8 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button
                             type="submit"
-                            :class="['btn', isCreateMode ? 'btn-success' : 'btn-primary']"
-                            :disabled="! isSubmittable || isSubmitted || Object.keys(props.validationErrors).some(key => props.validationErrors[key])"
+                            :class="['btn', generalStore.isCreateMode ? 'btn-success' : 'btn-primary']"
+                            :disabled="! isSubmittable || generalStore.isSubmitted || Object.keys(generalStore.errors).some(key => generalStore.errors[key])"
                         >
                             Save
                         </button>
@@ -53,30 +55,10 @@
 
 <script setup>
 
-    import { defineProps, defineEmits, onMounted, ref } from 'vue'
+    import { useGeneralStore } from '@/stores/general';
+    import { defineEmits, onMounted, ref } from 'vue'
 
-    const props = defineProps({
-        isSubmitted: {
-            type: Boolean,
-            default: false
-        },
-        isCreateMode: {
-            type: Boolean,
-            default: true
-        },
-        elementName: {
-            type: String,
-            required: true
-        },
-        singleAssetData: {
-            type: Object,
-            required: true
-        },
-        validationErrors: {
-            type: Object,
-            required: true
-        }
-    })
+    const generalStore = useGeneralStore()
 
     const emit = defineEmits(['storeAsset', 'updateAsset'])
 
@@ -90,12 +72,12 @@
 
         if (isVerifiedInput()) {
 
-            if (props.isCreateMode) {
-                emit('storeAsset', props.singleAssetData);
+            if (generalStore.isCreateMode) {
+                emit('storeAsset', generalStore.currentEntity);
             }
 
             else {
-                emit('updateAsset', props.singleAssetData)
+                emit('updateAsset', generalStore.currentEntity)
             }
 
         }
@@ -104,13 +86,11 @@
 
     function isVerifiedInput() {
 
-        for (let singleAssetFieldName in props.singleAssetData) {
+        generalStore.currentEntityRequiredProperties.forEach(function(propertyName) {
+            validateFormInput(propertyName);
+        });
 
-            validateFormInput(singleAssetFieldName);
-
-        }
-
-        if (Object.keys(props.validationErrors).some(key => props.validationErrors[key])) {
+        if (Object.keys(generalStore.errors).some(key => generalStore.errors[key])) {
             return false;
         }
         else {
@@ -127,12 +107,12 @@
 
             case formInputName :
 
-                if (! props.singleAssetData[formInputName]) {
-                    props.validationErrors[formInputName] = 'This is required';
+                if (! generalStore.currentEntity[formInputName]) {
+                    generalStore.errors[formInputName] = 'This is required';
                 }
                 else{
                     isSubmittable.value = true;
-                    props.validationErrors[formInputName] = null;
+                    generalStore.errors[formInputName] = null;
                 }
 
                 break;

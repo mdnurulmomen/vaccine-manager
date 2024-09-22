@@ -5,7 +5,7 @@
 			<div class="modal-content">
 				<form
 					class="form-horizontal"
-					v-on:submit.prevent="$emit('emitDeleteMethod', props.contentToDelete)"
+					v-on:submit.prevent="$emit('emitDeleteMethod', generalStore.currentEntity)"
 					autocomplete="off"
 				>
 					<div class="modal-header bg-danger">
@@ -16,8 +16,12 @@
 					</div>
 
 					<div class="modal-body text-center">
-						<h4 class="text-danger">Want to delete {{ props.contentToDelete.name ? ("'" + $helpers.capitalizeEachWord(props.contentToDelete.name) + "'") : '' }} ?</h4>
-						<h6 class="sub-heading text-secondary">{{ restorationMessage }}</h6>
+						<h4 class="text-danger">
+                            Want to delete {{ generalStore.currentEntity.name ? ("'" + $helpers.capitalizeEachWord(generalStore.currentEntity.name) + "'") : '' }} ?
+                        </h4>
+						<h6 class="sub-heading text-secondary">
+                            {{ generalStore.deletionWarningMessage }}
+                        </h6>
 					</div>
 
 					<div class="modal-footer justify-content-between">
@@ -26,7 +30,7 @@
 						<button
 							type="submit"
 							class="btn btn-danger"
-							:disabled="isSubmitted"
+							:disabled="generalStore.isSubmitted"
 						>
 							Delete
 						</button>
@@ -39,22 +43,10 @@
 
 <script setup>
 
-    import { defineProps, defineEmits, onMounted } from 'vue'
+    import { useGeneralStore } from '@/stores/general';
+    import { onMounted } from 'vue'
 
-    const props = defineProps({
-        isSubmitted : {
-            type : Boolean,
-            default: false
-        },
-        restorationMessage : {
-            type : String,
-            default : "Remember, You can't restore this item again !"
-        },
-        contentToDelete : {
-            type : Object,
-            required : true
-        }
-    })
+    const generalStore = useGeneralStore()
 
     onMounted(() => {
         // console.log('Delete Confirmation mounted.')

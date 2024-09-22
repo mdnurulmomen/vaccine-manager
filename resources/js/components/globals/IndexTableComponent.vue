@@ -19,10 +19,10 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-if="contents.length">
+        <tbody v-if="generalStore.currentIndexContents.length">
             <tr
                 class="row text-center"
-                v-for="(content, index) in contents"
+                v-for="(content, index) in generalStore.currentIndexContents"
             >
                 <td class="col">{{ index+1 }}</td>
 
@@ -31,7 +31,7 @@
                     v-for="columnName in props.columnNames"
                 >
                     {{
-                        (content[columnName] ? content[columnName] : (content[elementName.replace(/-/g, '_')] ? content[elementName.replace(/-/g, '_')][columnName] : 'NA'))
+                        (content[columnName] ? content[columnName] : (content[generalStore.currentEntityName.replace(/-/g, '_')] ? content[generalStore.currentEntityName.replace(/-/g, '_')][columnName] : 'NA'))
                     }}
                 </td>
 
@@ -41,9 +41,9 @@
                 >
                     <button
                         type="button"
-                        v-for="(actionButtonName, index) in props.actionButtonNames"
-                        :class="['btn', actionButtonClassNames[index], 'me-2']"
-                        @click="$emit(actionButtonEmittingMethodNames[index], content)"
+                        v-for="(actionButtonName, actionButtonNameIndex) in props.actionButtonNames"
+                        :class="['btn', actionButtonClassNames[actionButtonNameIndex], 'me-2']"
+                        @click="$emit(actionButtonEmittingMethodNames[actionButtonNameIndex], content)"
                     >
                         {{ $helpers.capitalizeEachWord(actionButtonName) }}
                     </button>
@@ -57,7 +57,9 @@
                     class="text-center"
                     :colspan="props.hasActions ? (columnNames.length+2) : (columnNames.length+1)"
                 >
-                    <span class="text-danger">No {{ $helpers.capitalizeEachWord(elementName) }} Found</span>
+                    <span class="text-danger">
+                        No {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }} Found
+                    </span>
                 </th>
             </tr>
         </tbody>
@@ -65,17 +67,10 @@
 </template>
 
 <script setup>
-    import { defineProps, defineEmits, onMounted, ref } from 'vue';
+    import { useGeneralStore } from '@/stores/general';
+    import { defineProps, onMounted, ref } from 'vue';
 
     const props = defineProps({
-        elementName: {
-            type: String,
-            required: true
-        },
-        contents: {
-            type: Array,
-            required: true
-        },
         columnNames: {
             type: Array,
             required: true
@@ -97,6 +92,8 @@
             required: true
         },
     })
+
+    const generalStore = useGeneralStore()
 
     onMounted(()=>{
 

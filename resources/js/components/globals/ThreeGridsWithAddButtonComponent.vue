@@ -1,26 +1,22 @@
 <template>
     <div class="row">
         <div class="col-xs-4 col-md-4">
-            Available {{ elementName.slice(-1)=='y' ? ($helpers.capitalizeEachWord(elementName.replace(/.$/,"ies"))) : ($helpers.capitalizeEachWord(elementName) + "'s") }}
+            Available {{ generalStore.currentEntityName.slice(-1)=='y' ? ($helpers.capitalizeEachWord(generalStore.currentEntityName.replace(/.$/,"ies"))) : ($helpers.capitalizeEachWord(generalStore.currentEntityName) + "'s") }}
         </div>
         <div class="col-xs-4 col-md-4 text-center"></div>
         <div class="col-xs-4 col-md-4 text-end">
             <button type="button" class="btn btn-success" @click="showStoreForm">
-                Add {{ $helpers.capitalizeEachWord(elementName) }}
+                Add {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }}
             </button>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { defineProps, defineEmits, onMounted } from 'vue'
+    import { useGeneralStore } from '@/stores/general';
+    import { defineEmits, onMounted } from 'vue'
 
-    const props = defineProps({
-        elementName: {
-            type: String,
-            required: true
-        }
-    })
+    const generalStore = useGeneralStore()
 
     const emit = defineEmits([
         'showStoreForm'
