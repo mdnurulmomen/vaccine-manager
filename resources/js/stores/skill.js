@@ -1,37 +1,20 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { useGeneralStore } from '@/stores/general';
 
 export const useSkillStore = defineStore('skill', () => {
     /* state */
-    const loading = ref(true)
-
-    const allContents = ref([])
-
-    const isSubmitted = ref(false)
-
-    const isCreateMode = ref(true)
-
-    const singleAssetData = ref({
-        name : ""
-    })
-
-    const errors = ref({
-        name : null
-    })
-
-    const createOrEditModal = ref(null)
-    const deleteConfirmationModal = ref(null)
+    const generalStore = useGeneralStore()
 
     /* getters */
     // const doubleCount = computed(() => count.value * 2)
 
     /* actions */
-    function fetchAllContents() {
+    function fetchIndexContents() {
 
-        loading.value = true;
-        allContents.value = [];
+        generalStore.loading = true;
+        generalStore.currentIndexContents = [];
 
         axios
             .get('/api/v1/skills/')
@@ -39,7 +22,7 @@ export const useSkillStore = defineStore('skill', () => {
                 // console.log(response);
                 if (response.status == 200) {
                     // console.log(response);
-                    allContents.value = response.data.data;
+                    generalStore.currentIndexContents = response.data.data;
                 }
             })
             .catch(error => {
@@ -62,23 +45,23 @@ export const useSkillStore = defineStore('skill', () => {
 
             })
             .finally(response => {
-                loading.value = false;
+                generalStore.loading = false;
             });
 
     }
 
     function storeAsset() {
 
-        isSubmitted.value = true;
+        generalStore.isSubmitted = true;
 
         axios
-            .post('api/v1/skills/', singleAssetData.value)
+            .post('api/v1/skills/', generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("New skill has been created");
-                    allContents.value = response.data.data;
-                    createOrEditModal.value.hide();
-                    resetSingleAssetObject();
+                    generalStore.currentIndexContents = response.data.data;
+                    generalStore.createOrEditModal.hide();
+                    resetCurrentEntity();
                 }
             })
             .catch(error => {
@@ -87,28 +70,28 @@ export const useSkillStore = defineStore('skill', () => {
 
                     for (var x in error.response.data.errors) {
                         toast.warning(error.response.data.errors[x][0]);
-                        errors.value[x] = error.response.data.errors[x][0]
+                        generalStore.errors[x] = error.response.data.errors[x][0]
                     }
                 }
             })
             .finally(response => {
-                isSubmitted.value = false;
+                generalStore.isSubmitted = false;
             });
 
     }
 
     function updateAsset() {
 
-        isSubmitted.value = true;
+        generalStore.isSubmitted = true;
 
         axios
-            .put('api/v1/skills/' + singleAssetData.value.id, singleAssetData.value)
+            .put('api/v1/skills/' + generalStore.currentEntity.id, generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("Skill has been updated");
-                    allContents.value = response.data.data;
-                    createOrEditModal.value.hide();
-                    resetSingleAssetObject();
+                    generalStore.currentIndexContents = response.data.data;
+                    generalStore.createOrEditModal.hide();
+                    resetCurrentEntity();
                 }
             })
             .catch(error => {
@@ -117,28 +100,28 @@ export const useSkillStore = defineStore('skill', () => {
 
                     for (var x in error.response.data.errors) {
                         toast.warning(error.response.data.errors[x][0]);
-                        errors.value[x] = error.response.data.errors[x][0]
+                        generalStore.errors[x] = error.response.data.errors[x][0]
                     }
                 }
             })
             .finally(response => {
-                isSubmitted.value = false;
+                generalStore.isSubmitted = false;
             });
 
     }
 
     function deleteAsset() {
 
-        isSubmitted.value = true;
+        generalStore.isSubmitted = true;
 
         axios
-            .delete('api/v1/skills/' + singleAssetData.value.id)
+            .delete('api/v1/skills/' + generalStore.currentEntity.id)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("Skill has been deleted");
-                    allContents.value = response.data.data;
-                    deleteConfirmationModal.value.hide();
-                    resetSingleAssetObject();
+                    generalStore.currentIndexContents = response.data.data;
+                    generalStore.deleteConfirmationModal.hide();
+                    resetCurrentEntity();
                 }
             })
             .catch(error => {
@@ -147,51 +130,35 @@ export const useSkillStore = defineStore('skill', () => {
 
                     for (var x in error.response.data.errors) {
                         toast.warning(error.response.data.errors[x][0]);
-                        errors.value[x] = error.response.data.errors[x][0]
+                        generalStore.errors[x] = error.response.data.errors[x][0]
                     }
                 }
             })
             .finally(response => {
-                isSubmitted.value = false;
+                generalStore.isSubmitted = false;
             });
 
     }
 
     function showStoreForm() {
-        isCreateMode.value = true;
-
         resetErrorObject();
-        resetSingleAssetObject();
-
-        createOrEditModal.value.show();
+        resetCurrentEntity();
+        generalStore.showStoreForm();
     }
 
-    function showContentEditForm(content) {
-        isCreateMode.value = false;
-        singleAssetData.value = content;
-        createOrEditModal.value.show();
-    }
-
-    function showContentDeleteConfirmationForm(content) {
-        singleAssetData.value = content;
-        deleteConfirmationModal.value.show();
-    }
-
-    function resetSingleAssetObject() {
-        singleAssetData.value = {
+    function resetCurrentEntity() {
+        generalStore.currentEntity = {
             name : "",
         };
     }
 
     function resetErrorObject() {
-        errors.value = {
+        generalStore.errors = {
             name : null,
         };
     }
 
     return {
-        loading, allContents, isSubmitted, isCreateMode, singleAssetData, errors, createOrEditModal,
-        deleteConfirmationModal, fetchAllContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
-        showContentEditForm, showContentDeleteConfirmationForm, resetSingleAssetObject, resetErrorObject
+        fetchIndexContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
     }
 })
