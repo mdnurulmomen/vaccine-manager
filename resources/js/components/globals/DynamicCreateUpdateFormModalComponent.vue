@@ -15,26 +15,12 @@
                     <div class="modal-body">
                         <div
                             class="mb-3"
-                            v-for="propertyName in generalStore.currentEntityShowableProperties"
+                            v-for="showableFieldObject in generalStore.currentEntityShowableFieldObjects"
                         >
-                            <label class="form-label">
-                                {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }} {{ $helpers.capitalizeEachWord(propertyName) }}
-                            </label>
-                            <input
-                                v-model="generalStore.currentEntity[propertyName]"
-                                type="text"
-                                :class="['form-control', generalStore.errors[propertyName] ? 'is-invalid' : 'is-valid']"
-                                :placeholder="`Please input ${propertyName}`"
-                                @change="validateFormInput(propertyName)"
-                                :disabled="generalStore.isSubmitted"
-                                required="true"
-                            >
-                            <div
-                                class="text-danger"
-                                v-show="generalStore.errors[propertyName]"
-                            >
-                                {{ generalStore.errors[propertyName] }}
-                            </div>
+                            <custom-objective-input-field-component
+                                :field="showableFieldObject"
+                                @input="validateFormInput(showableFieldObject['name'])"
+                            />
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -55,8 +41,8 @@
 
 <script setup>
 
+    import { defineEmits, onMounted, ref } from 'vue';
     import { useGeneralStore } from '@/stores/general';
-    import { defineEmits, onMounted, ref } from 'vue'
 
     const generalStore = useGeneralStore()
 
@@ -86,8 +72,8 @@
 
     function isVerifiedInput() {
 
-        generalStore.currentEntityRequiredProperties.forEach(function(propertyName) {
-            validateFormInput(propertyName);
+        generalStore.currentEntityRequiredFields.forEach(function(field) {
+            validateFormInput(field['name']);
         });
 
         if (Object.keys(generalStore.errors).some(key => generalStore.errors[key])) {
@@ -107,7 +93,7 @@
 
             case formInputName :
 
-                if (! generalStore.currentEntity[formInputName]) {
+                if (generalStore.currentEntityRequiredFields.includes(formInputName) && ! generalStore.currentEntity[formInputName]) {
                     generalStore.errors[formInputName] = 'This is required';
                 }
                 else{

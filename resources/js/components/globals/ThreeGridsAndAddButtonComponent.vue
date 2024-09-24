@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
+    import { defineEmits, onMounted } from 'vue';
     import { useGeneralStore } from '@/stores/general';
-    import { defineEmits, onMounted } from 'vue'
 
     const generalStore = useGeneralStore()
 
