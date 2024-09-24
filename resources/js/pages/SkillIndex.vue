@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <three-grids-with-add-button-component
+                        <three-grids-and-add-button-component
                             @show-store-form="skillStore.showStoreForm"
                         />
                     </div>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="row">
-            <dynamic-form-modal-component
+            <dynamic-create-update-form-modal-component
                 @store-asset="skillStore.storeAsset"
 			    @update-asset="skillStore.updateAsset"
             />
@@ -56,12 +56,17 @@
 
     skillStore.fetchIndexContents();
 
-    generalStore.currentEntityName = 'Skill';
+    generalStore.currentEntityName = 'skill';    // has to be lowercase
 
     onMounted(async () => {
         // console.log('Skill List mounted.')
-        generalStore.currentEntityShowableProperties = ['name']
-        generalStore.currentEntityRequiredProperties = ['name']
+        generalStore.currentEntityShowableFieldObjects = [
+            {
+                name:'name',
+                type:'text'
+            },
+        ]
+        generalStore.currentEntityRequiredFields = ['name']
         generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {})
         generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {})
     })

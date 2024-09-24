@@ -43,8 +43,8 @@
 
 <script setup>
 
+    import { onMounted } from 'vue';
     import { useGeneralStore } from '@/stores/general';
-    import { onMounted } from 'vue'
 
     const generalStore = useGeneralStore()
 

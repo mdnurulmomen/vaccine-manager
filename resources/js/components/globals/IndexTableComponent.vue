@@ -24,15 +24,13 @@
                 class="row text-center"
                 v-for="(content, index) in generalStore.currentIndexContents"
             >
-                <td class="col">{{ index+1 }}</td>
+                <td class="col">{{ index + 1 }}</td>
 
                 <td
                     class="col"
                     v-for="columnName in props.columnNames"
                 >
-                    {{
-                        (content[columnName] ? content[columnName] : (content[generalStore.currentEntityName.replace(/-/g, '_')] ? content[generalStore.currentEntityName.replace(/-/g, '_')][columnName] : 'NA'))
-                    }}
+                    {{ contentName(content, columnName) }}
                 </td>
 
                 <td
@@ -67,8 +65,8 @@
 </template>
 
 <script setup>
+    import { defineProps, onMounted } from 'vue';
     import { useGeneralStore } from '@/stores/general';
-    import { defineProps, onMounted, ref } from 'vue';
 
     const props = defineProps({
         columnNames: {
@@ -85,17 +83,34 @@
         },
         actionButtonClassNames: {
             type: Array,
-            required: true
+            required: true,
+            validator(value, props) {
+                // The value length must be same as another props length
+                return props.actionButtonNames.length == value.length
+            }
         },
         actionButtonEmittingMethodNames: {
             type: Array,
-            required: true
+            required: true,
+            validator(value, props) {
+                // The value length must be same as another props length
+                return props.actionButtonNames.length == value.length
+            }
         },
     })
 
     const generalStore = useGeneralStore()
 
     onMounted(()=>{
-
+        //
     })
+
+    function contentName(content, columnName) {
+        if (content[columnName]) {
+            return content[columnName];
+        } else {
+            let nestedObjectName = generalStore.currentEntityName.replace(/-/g, '_');
+            return content[nestedObjectName] ? content[nestedObjectName][columnName] : 'NA';
+        }
+    }
 </script>

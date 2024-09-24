@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { defineStore } from 'pinia'
 
 export const useGeneralStore = defineStore('general', () => {
     /* state */
@@ -21,9 +21,9 @@ export const useGeneralStore = defineStore('general', () => {
 
     const errors = ref({})
 
-    const currentEntityShowableProperties = ref([])
+    const currentEntityShowableFieldObjects = ref([])
 
-    const currentEntityRequiredProperties = ref([])
+    const currentEntityRequiredFields = ref([])
 
     const deletionWarningMessage = ref("Remember, You can't restore this item again !")
 
@@ -47,7 +47,7 @@ export const useGeneralStore = defineStore('general', () => {
     }
 
     return {
-        loading, isSubmitted, isCreateMode, createOrEditModal, deleteConfirmationModal, currentIndexContents, currentEntityName, currentEntity, currentEntityShowableProperties, currentEntityRequiredProperties, errors, deletionWarningMessage,
+        loading, isSubmitted, isCreateMode, createOrEditModal, deleteConfirmationModal, currentIndexContents, currentEntityName, currentEntity, currentEntityShowableFieldObjects, currentEntityRequiredFields, errors, deletionWarningMessage,
         showStoreForm, showContentEditForm, showContentDeleteConfirmationForm
     }
 })

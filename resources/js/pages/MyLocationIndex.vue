@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <three-grids-with-add-button-component
+                        <three-grids-and-add-button-component
                             element-name="preferred-location"
 
                             @show-store-form="showStoreForm"
