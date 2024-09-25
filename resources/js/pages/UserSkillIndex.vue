@@ -5,23 +5,19 @@
                 <div class="card">
                     <div class="card-header">
                         <three-grids-and-add-button-component
-                            element-name="preferred-skill"
-
-                            @show-store-form="showStoreForm"
+                            @show-store-form="mySkillStore.showStoreForm"
                         />
                     </div>
 
                     <div class="card-body">
                         <index-table-component
-                            element-name="skill"
-                            :contents="myAllContents"
                             :column-names="['name']"
                             :has-actions="true"
                             :action-button-names="['delete']"
                             :action-button-class-names="['btn-outline-danger']"
                             :action-button-emitting-method-names="['showContentDeleteConfirmationForm']"
 
-                            @show-content-delete-confirmation-form="showContentDeleteConfirmationForm"
+                            @show-content-delete-confirmation-form="generalStore.showContentDeleteConfirmationForm"
                         />
                     </div>
                 </div>
@@ -29,214 +25,49 @@
         </div>
 
         <div class="row">
-            <user-form-modal-component
-                element-name="skill"
-                :available-assets="allAvailableAssets"
-                :is-submitted="isSubmitted"
-                :single-asset-data="singleAssetData"
-                :validation-errors="errors"
-
-                @store-asset="storeAsset"
+            <user-dynamic-create-update-form-modal-component
+                @store-content="mySkillStore.storeContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                :is-submitted="isSubmitted"
-                :content-to-delete="singleAssetData"
-
-                @emit-delete-method="deleteAsset"
+                @emit-delete-method="mySkillStore.deleteContent"
             />
         </div>
     </div>
 </template>
 
 <script setup>
-    import { onMounted, ref } from 'vue'
+    import { onMounted } from 'vue'
     import { Modal } from 'bootstrap'
-    import { toast } from 'vue3-toastify';
-    import 'vue3-toastify/dist/index.css';
+    // import { storeToRefs } from 'pinia'
+    import { useGeneralStore } from '@/stores/general';
+    import { useUserSkillStore } from '@/stores/user-skill';
+
+    // onCreated equivalent
+    const generalStore = useGeneralStore()
+    const mySkillStore = useUserSkillStore()
+
+    // importing state-variables with ref()
+    // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(mySkillStore)
+
+    mySkillStore.fetchIndexContents();
+    mySkillStore.fetchAssetSelectContents();
+
+    generalStore.currentEntityName = 'skill';    // has to be lowercase
 
     onMounted(async () => {
-        fetchMyContents();
-        fetchAvailableAssets();
-        // console.log('User Skill List mounted.')
-        myPreferenceAddModal.value = new Modal('#user-preference-form-modal', {})
-        deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
+        // console.log('User-skill List mounted.')
+        generalStore.currentEntityShowableFieldObjects = [
+            {
+                name:'skill_id',
+                type:'number'
+            }
+        ];
+
+        generalStore.currentEntityRequiredFields = ['skill_id'];
+        generalStore.createOrEditModal = new Modal('#user-preference-form-modal', {});
+        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
-
-    const loading = ref(true)
-
-    const myAllContents = ref([])
-
-    const allAvailableAssets = ref([])
-
-    const isSubmitted = ref(false)
-
-    const singleAssetData = ref({
-        skill_id : ""
-    })
-
-    const errors = ref({
-        skill_id : null
-    })
-
-    const myPreferenceAddModal = ref(null)
-    const deleteConfirmationModal = ref(null)
-
-    function fetchMyContents() {
-
-        loading.value = true;
-        myAllContents.value = [];
-
-        axios
-            .get('/api/v1/user-skills/')
-            .then(response => {
-                // console.log(response);
-                if (response.status == 200) {
-                    // console.log(response);
-                    myAllContents.value = response.data.data;
-                }
-            })
-            .catch(error => {
-                error = error.toString();
-                // Request made and server responded
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                    console.log(error.response.data.errors[x]);
-                }
-                // The request was made but no response was received
-                else if (error.request) {
-                    console.log(error.request);
-                }
-                // Something happened in setting up the request that triggered an Error
-                else {
-                    console.log('Error', error.message);
-                }
-
-            })
-            .finally(response => {
-                loading.value = false;
-            });
-
-    }
-    function fetchAvailableAssets() {
-
-        loading.value = true;
-        allAvailableAssets.value = [];
-
-        axios
-            .get('/api/v1/skills/')
-            .then(response => {
-                // console.log(response);
-                if (response.status == 200) {
-                    // console.log(response);
-                    allAvailableAssets.value = response.data.data;
-                }
-            })
-            .catch(error => {
-                error = error.toString();
-                // Request made and server responded
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                    console.log(error.response.data.errors[x]);
-                }
-                // The request was made but no response was received
-                else if (error.request) {
-                    console.log(error.request);
-                }
-                // Something happened in setting up the request that triggered an Error
-                else {
-                    console.log('Error', error.message);
-                }
-
-            })
-            .finally(response => {
-                loading.value = false;
-            });
-
-    }
-    function showStoreForm() {
-
-        resetErrorObject();
-        resetSingleAssetObject();
-
-        myPreferenceAddModal.value.show();
-    }
-    function storeMyAsset() {
-
-        isSubmitted.value = true;
-
-        axios
-            .post('api/v1/user-skills/', singleAssetData.value)
-            .then(response => {
-                if (response.status == 200) {
-                    toast.success("Selected skill has been added");
-                    myAllContents.value = response.data.data;
-                    myPreferenceAddModal.value.hide();
-                    resetSingleAssetObject();
-                }
-            })
-            .catch(error => {
-                if (error.response.status == 422) {
-                    resetErrorObject();
-
-                    for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x][0]);
-                        errors.value[x] = error.response.data.errors[x][0];
-                    }
-                }
-            })
-            .finally(response => {
-                isSubmitted.value = false;
-            });
-
-    }
-    function showContentDeleteConfirmationForm(content) {
-        singleAssetData.value = content;
-        deleteConfirmationModal.value.show();
-    }
-    function deleteMyAsset() {
-
-        isSubmitted.value = true;
-
-        axios
-            .delete('api/v1/user-skills/' + singleAssetData.value.id)
-            .then(response => {
-                if (response.status == 200) {
-                    toast.success("Selected skill has been removed");
-                    myAllContents.value = response.data.data;
-                    deleteConfirmationModal.value.hide();
-                    resetSingleAssetObject();
-                }
-            })
-            .catch(error => {
-                if (error.response.status == 422) {
-                    resetErrorObject();
-
-                    for (var x in error.response.data.errors) {
-                        toast.warning(error.response.data.errors[x][0]);
-                        errors.value[x] = error.response.data.errors[x][0];
-                    }
-                }
-            })
-            .finally(response => {
-                isSubmitted.value = false;
-            });
-
-    }
-    function resetSingleAssetObject() {
-        singleAssetData.value = {
-            skill_id : ""
-        };
-    }
-    function resetErrorObject() {
-        errors.value = {
-            skill_id : null
-        };
-    }
 </script>
