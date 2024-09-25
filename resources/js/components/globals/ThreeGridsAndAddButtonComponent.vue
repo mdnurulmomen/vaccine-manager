@@ -5,7 +5,7 @@
         </div>
         <div class="col-xs-4 col-md-4 text-center"></div>
         <div class="col-xs-4 col-md-4 text-end">
-            <button type="button" class="btn btn-success" @click="showStoreForm">
+            <button type="button" class="btn btn-success" @click="showStoreForm" v-if="props.hasAddButton">
                 Add {{ $helpers.capitalizeEachWord(generalStore.currentEntityName) }}
             </button>
         </div>
@@ -13,10 +13,17 @@
 </template>
 
 <script setup>
-    import { defineEmits, onMounted } from 'vue';
+    import { defineProps, defineEmits, onMounted } from 'vue';
     import { useGeneralStore } from '@/stores/general';
 
     const generalStore = useGeneralStore()
+
+    const props = defineProps({
+        hasAddButton: {
+            type: Boolean,
+            default: true
+        }
+    })
 
     const emit = defineEmits([
         'showStoreForm'

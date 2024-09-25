@@ -79,11 +79,15 @@
         },
         actionButtonNames: {
             type: Array,
-            required: true
+            default:[],
+            validator(value, props) {
+                // The value length must be same as another props length
+                return (props.actionButtonClassNames.length == value.length && props.actionButtonEmittingMethodNames.length == value.length)
+            }
         },
         actionButtonClassNames: {
             type: Array,
-            required: true,
+            default:[],
             validator(value, props) {
                 // The value length must be same as another props length
                 return props.actionButtonNames.length == value.length
@@ -91,7 +95,7 @@
         },
         actionButtonEmittingMethodNames: {
             type: Array,
-            required: true,
+            default:[],
             validator(value, props) {
                 // The value length must be same as another props length
                 return props.actionButtonNames.length == value.length
