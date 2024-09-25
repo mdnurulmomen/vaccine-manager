@@ -53,7 +53,7 @@
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(myInterestStore)
 
     myInterestStore.fetchIndexContents();
-    myInterestStore.fetchMyAssetSelectContents();
+    myInterestStore.fetchAssetSelectContents();
 
     generalStore.currentEntityName = 'interest';    // has to be lowercase
 
@@ -64,9 +64,10 @@
                 name:'interest_id',
                 type:'number'
             }
-        ]
-        generalStore.currentEntityRequiredFields = ['interest_id']
-        generalStore.createOrEditModal = new Modal('#my-preference-form-modal', {})
-        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {})
+        ];
+
+        generalStore.currentEntityRequiredFields = ['interest_id'];
+        generalStore.createOrEditModal = new Modal('#my-preference-form-modal', {});
+        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>

@@ -16,7 +16,7 @@
             </option>
 
             <option
-                v-for="asset in myInterestStore.myAssetSelectOptions"
+                v-for="asset in generalStore.assetSelectOptions"
                 :value="asset.id"
             >
                 {{ $helpers.capitalizeEachWord(asset.name) }}
@@ -35,10 +35,8 @@
 <script setup>
     import { defineProps } from 'vue';
     import { useGeneralStore } from '@/stores/general';
-    import { useMyInterestStore } from '@/stores/my-interest';
 
     const generalStore = useGeneralStore()
-    const myInterestStore = useMyInterestStore()
 
     const props = defineProps({
         field: {

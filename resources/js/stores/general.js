@@ -15,6 +15,8 @@ export const useGeneralStore = defineStore('general', () => {
 
     const currentIndexContents = ref([])
 
+    const assetSelectOptions = ref([])
+
     const currentEntityName = ref(null)
 
     const currentEntity = ref({})
@@ -47,7 +49,7 @@ export const useGeneralStore = defineStore('general', () => {
     }
 
     return {
-        loading, isSubmitted, isCreateMode, createOrEditModal, deleteConfirmationModal, currentIndexContents, currentEntityName, currentEntity, currentEntityShowableFieldObjects, currentEntityRequiredFields, errors, deletionWarningMessage,
+        loading, isSubmitted, isCreateMode, createOrEditModal, deleteConfirmationModal, currentIndexContents, assetSelectOptions, currentEntityName, currentEntity, currentEntityShowableFieldObjects, currentEntityRequiredFields, errors, deletionWarningMessage,
         showStoreForm, showContentEditForm, showContentDeleteConfirmationForm
     }
 })

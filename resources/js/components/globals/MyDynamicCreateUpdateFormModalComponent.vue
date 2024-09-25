@@ -20,7 +20,7 @@
                         >
                             <custom-objective-select-field-component
                                 :field="showableFieldObject"
-                                @input="validateFormInput(showableFieldObject['name'])"
+                                @input="console.log(showableFieldObject['name'])"
                             />
                         </div>
                     </div>
