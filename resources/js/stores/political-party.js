@@ -50,7 +50,7 @@ export const usePoliticalPartyStore = defineStore('political-party', () => {
 
     }
 
-    function storeAsset() {
+    function storeContent() {
 
         generalStore.isSubmitted = true;
 
@@ -80,7 +80,7 @@ export const usePoliticalPartyStore = defineStore('political-party', () => {
 
     }
 
-    function updateAsset() {
+    function updateContent() {
 
         generalStore.isSubmitted = true;
 
@@ -110,7 +110,7 @@ export const usePoliticalPartyStore = defineStore('political-party', () => {
 
     }
 
-    function deleteAsset() {
+    function deleteContent() {
 
         generalStore.isSubmitted = true;
 
@@ -159,6 +159,6 @@ export const usePoliticalPartyStore = defineStore('political-party', () => {
     }
 
     return {
-        fetchIndexContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
+        fetchIndexContents, storeContent, updateContent, deleteContent, showStoreForm,
     }
 })

@@ -26,13 +26,13 @@
 
         <div class="row">
             <user-dynamic-create-update-form-modal-component
-                @store-asset="myPoliticalPartyStore.storeAsset"
+                @store-content="myPoliticalPartyStore.storeContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                @emit-delete-method="myPoliticalPartyStore.deleteAsset"
+                @emit-delete-method="myPoliticalPartyStore.deleteContent"
             />
         </div>
     </div>

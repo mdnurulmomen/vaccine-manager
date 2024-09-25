@@ -50,7 +50,7 @@ export const useSkillStore = defineStore('skill', () => {
 
     }
 
-    function storeAsset() {
+    function storeContent() {
 
         generalStore.isSubmitted = true;
 
@@ -80,7 +80,7 @@ export const useSkillStore = defineStore('skill', () => {
 
     }
 
-    function updateAsset() {
+    function updateContent() {
 
         generalStore.isSubmitted = true;
 
@@ -110,7 +110,7 @@ export const useSkillStore = defineStore('skill', () => {
 
     }
 
-    function deleteAsset() {
+    function deleteContent() {
 
         generalStore.isSubmitted = true;
 
@@ -159,6 +159,6 @@ export const useSkillStore = defineStore('skill', () => {
     }
 
     return {
-        fetchIndexContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
+        fetchIndexContents, storeContent, updateContent, deleteContent, showStoreForm,
     }
 })

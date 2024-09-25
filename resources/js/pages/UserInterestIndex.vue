@@ -26,13 +26,13 @@
 
         <div class="row">
             <user-dynamic-create-update-form-modal-component
-                @store-asset="myInterestStore.storeAsset"
+                @store-content="myInterestStore.storeContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                @emit-delete-method="myInterestStore.deleteAsset"
+                @emit-delete-method="myInterestStore.deleteContent"
             />
         </div>
     </div>

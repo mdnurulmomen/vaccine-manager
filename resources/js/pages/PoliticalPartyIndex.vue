@@ -27,14 +27,14 @@
 
         <div class="row">
             <dynamic-create-update-form-modal-component
-                @store-asset="partyStore.storeAsset"
-			    @update-asset="partyStore.updateAsset"
+                @store-content="partyStore.storeContent"
+			    @update-content="partyStore.updateContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                @emit-delete-method="partyStore.deleteAsset"
+                @emit-delete-method="partyStore.deleteContent"
             />
         </div>
     </div>

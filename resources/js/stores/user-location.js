@@ -90,7 +90,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
 
     }
 
-    function storeAsset() {
+    function storeContent() {
 
         generalStore.isSubmitted = true;
 
@@ -120,7 +120,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
 
     }
 
-    function updateAsset() {
+    function updateContent() {
 
         generalStore.isSubmitted = true;
 
@@ -150,7 +150,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
 
     }
 
-    function deleteAsset() {
+    function deleteContent() {
 
         generalStore.isSubmitted = true;
 
@@ -199,6 +199,6 @@ export const useUserLocationStore = defineStore('user-location', () => {
     }
 
     return {
-        fetchIndexContents, fetchAssetSelectContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
+        fetchIndexContents, fetchAssetSelectContents, storeContent, updateContent, deleteContent, showStoreForm,
     }
 })

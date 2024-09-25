@@ -48,7 +48,7 @@
 
     const generalStore = useGeneralStore()
 
-    const emit = defineEmits(['storeAsset'])
+    const emit = defineEmits(['storeContent'])
 
     onMounted(() => {
         // console.log('Add Button Component mounted.')
@@ -60,7 +60,7 @@
 
         if (isVerifiedInput()) {
 
-            emit('storeAsset', generalStore.currentEntity);
+            emit('storeContent', generalStore.currentEntity);
 
         }
 

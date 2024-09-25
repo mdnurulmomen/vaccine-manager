@@ -26,13 +26,13 @@
 
         <div class="row">
             <user-dynamic-create-update-form-modal-component
-                @store-asset="myLocationStore.storeAsset"
+                @store-content="myLocationStore.storeContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                @emit-delete-method="myLocationStore.deleteAsset"
+                @emit-delete-method="myLocationStore.deleteContent"
             />
         </div>
     </div>

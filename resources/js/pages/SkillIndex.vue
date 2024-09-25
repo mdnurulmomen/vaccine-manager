@@ -27,14 +27,14 @@
 
         <div class="row">
             <dynamic-create-update-form-modal-component
-                @store-asset="skillStore.storeAsset"
-			    @update-asset="skillStore.updateAsset"
+                @store-content="skillStore.storeContent"
+			    @update-content="skillStore.updateContent"
             />
         </div>
 
         <div class="row">
             <delete-confirmation-component
-                @emit-delete-method="skillStore.deleteAsset"
+                @emit-delete-method="skillStore.deleteContent"
             />
         </div>
     </div>

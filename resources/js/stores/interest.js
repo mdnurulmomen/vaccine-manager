@@ -50,7 +50,7 @@ export const useInterestStore = defineStore('interest', () => {
 
     }
 
-    function storeAsset() {
+    function storeContent() {
 
         generalStore.isSubmitted = true;
 
@@ -80,7 +80,7 @@ export const useInterestStore = defineStore('interest', () => {
 
     }
 
-    function updateAsset() {
+    function updateContent() {
 
         generalStore.isSubmitted = true;
 
@@ -110,7 +110,7 @@ export const useInterestStore = defineStore('interest', () => {
 
     }
 
-    function deleteAsset() {
+    function deleteContent() {
 
         generalStore.isSubmitted = true;
 
@@ -159,6 +159,6 @@ export const useInterestStore = defineStore('interest', () => {
     }
 
     return {
-        fetchIndexContents, storeAsset, updateAsset, deleteAsset, showStoreForm,
+        fetchIndexContents, storeContent, updateContent, deleteContent, showStoreForm,
     }
 })
