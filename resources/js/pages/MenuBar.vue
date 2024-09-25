@@ -64,28 +64,28 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             <RouterLink class="dropdown-item" to="/my-skills">
                                                 Preferred Skills
-                                                <span class="sr-only" v-show="currentRouteName=='my-skills.index'">
+                                                <span class="sr-only" v-show="currentRouteName=='user-skills.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>
 
                                             <RouterLink class="dropdown-item" to="/my-interests">
                                                 Preferred Interests
-                                                <span class="sr-only" v-show="currentRouteName=='my-interests.index'">
+                                                <span class="sr-only" v-show="currentRouteName=='user-interests.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>
 
                                             <RouterLink class="dropdown-item" to="/my-locations">
                                                 Preferred Locations
-                                                <span class="sr-only" v-show="currentRouteName=='my-locations.index'">
+                                                <span class="sr-only" v-show="currentRouteName=='user-locations.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>
 
                                             <RouterLink class="dropdown-item" to="/my-political-parties">
                                                 Preferred Parties
-                                                <span class="sr-only" v-show="currentRouteName=='my-political-parties.index'">
+                                                <span class="sr-only" v-show="currentRouteName=='user-political-parties.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>

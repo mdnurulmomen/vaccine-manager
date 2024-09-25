@@ -43,18 +43,18 @@
 
     onMounted(() => {
         // console.log('Home mounted.')
-        fetchAllContents();
+        fetchIndexContents();
     })
 
     const allContents = ref([])
 
-    function fetchAllContents() {
+    function fetchIndexContents() {
 
         // loading.value = true;
         allContents.value = [];
 
         axios
-            .get('/api/v1/my-users/')
+            .get('/api/v1/users/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {

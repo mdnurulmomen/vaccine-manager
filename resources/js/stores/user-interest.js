@@ -4,7 +4,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { useGeneralStore } from '@/stores/general';
 
-export const useMyPoliticalPartyStore = defineStore('user-political-party', () => {
+export const useUserInterestStore = defineStore('user-interest', () => {
     /* state */
     const generalStore = useGeneralStore()
 
@@ -18,7 +18,7 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
         generalStore.currentIndexContents = [];
 
         axios
-            .get('/api/v1/user-political-parties/')
+            .get('/api/v1/user-interests/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {
@@ -57,7 +57,7 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
         generalStore.assetSelectOptions = [];
 
         axios
-            .get('/api/v1/political-parties/')
+            .get('/api/v1/interests/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {
@@ -95,7 +95,7 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
         generalStore.isSubmitted = true;
 
         axios
-            .post('api/v1/user-political-parties/', generalStore.currentEntity)
+            .post('api/v1/user-interests/', generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("New skill has been created");
@@ -125,7 +125,7 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
         generalStore.isSubmitted = true;
 
         axios
-            .put('api/v1/user-political-parties/' + generalStore.currentEntity.id, generalStore.currentEntity)
+            .put('api/v1/user-interests/' + generalStore.currentEntity.id, generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("Skill has been updated");
@@ -155,7 +155,7 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
         generalStore.isSubmitted = true;
 
         axios
-            .delete('api/v1/user-political-parties/' + generalStore.currentEntity.id)
+            .delete('api/v1/user-interests/' + generalStore.currentEntity.id)
             .then(response => {
                 if (response.status == 200) {
                     toast.success("Skill has been deleted");
@@ -188,13 +188,13 @@ export const useMyPoliticalPartyStore = defineStore('user-political-party', () =
 
     function resetCurrentEntity() {
         generalStore.currentEntity = {
-            political_party_id : ""
+            interest_id : ""
         };
     }
 
     function resetErrorObject() {
         generalStore.errors = {
-            political_party_id : null,
+            interest_id : null,
         };
     }
 

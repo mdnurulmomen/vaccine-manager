@@ -25,7 +25,7 @@
         </div>
 
         <div class="row">
-            <my-dynamic-create-update-form-modal-component
+            <user-dynamic-create-update-form-modal-component
                 @store-asset="myInterestStore.storeAsset"
             />
         </div>
@@ -43,11 +43,11 @@
     import { Modal } from 'bootstrap'
     // import { storeToRefs } from 'pinia'
     import { useGeneralStore } from '@/stores/general';
-    import { useMyInterestStore } from '@/stores/my-interest';
+    import { useUserInterestStore } from '@/stores/user-interest';
 
     // onCreated equivalent
     const generalStore = useGeneralStore()
-    const myInterestStore = useMyInterestStore()
+    const myInterestStore = useUserInterestStore()
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(myInterestStore)
@@ -58,7 +58,7 @@
     generalStore.currentEntityName = 'interest';    // has to be lowercase
 
     onMounted(async () => {
-        // console.log('My-Interest List mounted.')
+        // console.log('User-Interest List mounted.')
         generalStore.currentEntityShowableFieldObjects = [
             {
                 name:'interest_id',
@@ -67,7 +67,7 @@
         ];
 
         generalStore.currentEntityRequiredFields = ['interest_id'];
-        generalStore.createOrEditModal = new Modal('#my-preference-form-modal', {});
+        generalStore.createOrEditModal = new Modal('#user-preference-form-modal', {});
         generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>

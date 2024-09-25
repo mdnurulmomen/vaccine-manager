@@ -54,6 +54,6 @@ Route::prefix('v1')->group(function () {
             'user-interests' => 'userInterest'
         ]);
 
-        Route::get('/my-users', [MyUserController::class, 'index'])->name('my-users');
+        Route::get('/users', [MyUserController::class, 'index'])->name('users');
     });
 });

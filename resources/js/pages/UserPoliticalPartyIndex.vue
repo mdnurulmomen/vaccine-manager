@@ -25,7 +25,7 @@
         </div>
 
         <div class="row">
-            <my-dynamic-create-update-form-modal-component
+            <user-dynamic-create-update-form-modal-component
                 @store-asset="myPoliticalPartyStore.storeAsset"
             />
         </div>
@@ -43,11 +43,11 @@
     import { Modal } from 'bootstrap'
     // import { storeToRefs } from 'pinia'
     import { useGeneralStore } from '@/stores/general';
-    import { useMyPoliticalPartyStore } from '@/stores/my-political-party';
+    import { useUserPoliticalPartyStore } from '@/stores/user-political-party';
 
     // onCreated equivalent
     const generalStore = useGeneralStore()
-    const myPoliticalPartyStore = useMyPoliticalPartyStore()
+    const myPoliticalPartyStore = useUserPoliticalPartyStore()
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(myPoliticalPartyStore)
@@ -58,7 +58,7 @@
     generalStore.currentEntityName = 'political-party';    // has to be lowercase
 
     onMounted(async () => {
-        // console.log('My-Political-Party List mounted.')
+        // console.log('User-Political-Party List mounted.')
         generalStore.currentEntityShowableFieldObjects = [
             {
                 name:'political_party_id',
@@ -67,7 +67,7 @@
         ];
 
         generalStore.currentEntityRequiredFields = ['political_party_id'];
-        generalStore.createOrEditModal = new Modal('#my-preference-form-modal', {});
+        generalStore.createOrEditModal = new Modal('#user-preference-form-modal', {});
         generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>

@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <three-grids-and-add-button-component
-                            element-name="preferred-skill"
+                            element-name="preferred-location"
 
                             @show-store-form="showStoreForm"
                         />
@@ -13,7 +13,7 @@
 
                     <div class="card-body">
                         <index-table-component
-                            element-name="skill"
+                            element-name="location"
                             :contents="myAllContents"
                             :column-names="['name']"
                             :has-actions="true"
@@ -29,14 +29,14 @@
         </div>
 
         <div class="row">
-            <my-form-modal-component
-                element-name="skill"
+            <user-form-modal-component
+                element-name="location"
                 :available-assets="allAvailableAssets"
                 :is-submitted="isSubmitted"
                 :single-asset-data="singleAssetData"
                 :validation-errors="errors"
 
-                @store-my-asset="storeMyAsset"
+                @store-asset="storeAsset"
             />
         </div>
 
@@ -45,7 +45,7 @@
                 :is-submitted="isSubmitted"
                 :content-to-delete="singleAssetData"
 
-                @emit-delete-method="deleteMyAsset"
+                @emit-delete-method="deleteAsset"
             />
         </div>
     </div>
@@ -58,10 +58,10 @@
     import 'vue3-toastify/dist/index.css';
 
     onMounted(async () => {
-        fetchMyContents();
+        fetchIndexContents();
         fetchAvailableAssets();
-        // console.log('My Skill List mounted.')
-        myPreferenceAddModal.value = new Modal('#my-preference-form-modal', {})
+        // console.log('User Location List mounted.')
+        myPreferenceAddModal.value = new Modal('#user-preference-form-modal', {})
         deleteConfirmationModal.value = new Modal('#delete-confirmation-modal', {})
     })
 
@@ -74,11 +74,11 @@
     const isSubmitted = ref(false)
 
     const singleAssetData = ref({
-        skill_id : ""
+        location_id : ""
     })
 
     const errors = ref({
-        skill_id : null
+        location_id : null
     })
 
     const myPreferenceAddModal = ref(null)
@@ -90,7 +90,7 @@
         myAllContents.value = [];
 
         axios
-            .get('/api/v1/user-skills/')
+            .get('/api/v1/user-locations/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {
@@ -128,7 +128,7 @@
         allAvailableAssets.value = [];
 
         axios
-            .get('/api/v1/skills/')
+            .get('/api/v1/locations/')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {
@@ -172,10 +172,10 @@
         isSubmitted.value = true;
 
         axios
-            .post('api/v1/user-skills/', singleAssetData.value)
+            .post('api/v1/user-locations/', singleAssetData.value)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Selected skill has been added");
+                    toast.success("Selected location has been added");
                     myAllContents.value = response.data.data;
                     myPreferenceAddModal.value.hide();
                     resetSingleAssetObject();
@@ -205,10 +205,10 @@
         isSubmitted.value = true;
 
         axios
-            .delete('api/v1/user-skills/' + singleAssetData.value.id)
+            .delete('api/v1/user-locations/' + singleAssetData.value.id)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Selected skill has been removed");
+                    toast.success("Selected location has been removed");
                     myAllContents.value = response.data.data;
                     deleteConfirmationModal.value.hide();
                     resetSingleAssetObject();
@@ -231,12 +231,12 @@
     }
     function resetSingleAssetObject() {
         singleAssetData.value = {
-            skill_id : ""
+            location_id : "",
         };
     }
     function resetErrorObject() {
         errors.value = {
-            skill_id : null
+            location_id : null
         };
     }
 </script>
