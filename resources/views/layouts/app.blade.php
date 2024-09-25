@@ -82,10 +82,13 @@
             @endauth
         </main>
     </div>
-    @auth
+
+    {{-- @auth --}}
+    <!--
     <script type="text/javascript">
-        localStorage.setItem("access_token", JSON.stringify(@json($access_token)));
+        localStorage.setItem("access_token", JSON.stringify({{-- @json($access_token) --}}));
     </script>
-    @endauth
+    -->
+    {{-- @endauth --}}
 </body>
 </html>

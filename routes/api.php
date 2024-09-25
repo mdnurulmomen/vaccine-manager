@@ -25,19 +25,29 @@ use App\Http\Controllers\UserPoliticalPartyController;
 */
 Route::prefix('v1')->group(function () {
 
-    Route::apiResource('skills', SkillController::class);
-    Route::apiResource('interests', InterestController::class);
-    Route::apiResource('locations', LocationController::class);
+    Route::apiResource('skills', SkillController::class)->only('index');
+    Route::apiResource('interests', InterestController::class)->only('index');
+    Route::apiResource('locations', LocationController::class)->only('index');
 
     Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([
         'political-parties' => 'politicalParty'
-    ]);
+    ])->only('index');
 
     Route::apiResource('user-types', UserTypeController::class)->parameters([
         'user-types' => 'userType'
     ])->only('index');
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResource('skills', SkillController::class)->except('index');
+
+        Route::apiResource('interests', InterestController::class)->except('index');
+
+        Route::apiResource('locations', LocationController::class)->except('index');
+
+        Route::apiResource('political-parties', PoliticalPartyController::class)->parameters([
+            'political-parties' => 'politicalParty'
+        ])->except('index');
+
         Route::apiResource('user-locations', UserLocationController::class)->parameters([
             'user-locations' => 'userLocation'
         ]);
