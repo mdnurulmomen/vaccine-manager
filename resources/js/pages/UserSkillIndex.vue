@@ -39,15 +39,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
-    // import { storeToRefs } from 'pinia'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
+    // import { storeToRefs } from 'pinia';
     import { useGeneralStore } from '@/stores/general';
     import { useUserSkillStore } from '@/stores/user-skill';
 
     // onCreated equivalent
-    const generalStore = useGeneralStore()
-    const mySkillStore = useUserSkillStore()
+    const generalStore = useGeneralStore();
+    const mySkillStore = useUserSkillStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(mySkillStore)

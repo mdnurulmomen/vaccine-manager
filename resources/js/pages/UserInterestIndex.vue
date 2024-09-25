@@ -39,15 +39,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
-    // import { storeToRefs } from 'pinia'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
+    // import { storeToRefs } from 'pinia';
     import { useGeneralStore } from '@/stores/general';
     import { useUserInterestStore } from '@/stores/user-interest';
 
     // onCreated equivalent
-    const generalStore = useGeneralStore()
-    const myInterestStore = useUserInterestStore()
+    const generalStore = useGeneralStore();
+    const myInterestStore = useUserInterestStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(myInterestStore)

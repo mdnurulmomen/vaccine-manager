@@ -41,15 +41,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
-    // import { storeToRefs } from 'pinia'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
+    // import { storeToRefs } from 'pinia';
     import { useSkillStore } from '@/stores/skill';
     import { useGeneralStore } from '@/stores/general';
 
     // onCreated equivalent
-    const skillStore = useSkillStore()
-    const generalStore = useGeneralStore()
+    const skillStore = useSkillStore();
+    const generalStore = useGeneralStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(skillStore)
@@ -65,9 +65,10 @@
                 name:'name',
                 type:'text'
             },
-        ]
-        generalStore.currentEntityRequiredFields = ['name']
-        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {})
-        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {})
+        ];
+
+        generalStore.currentEntityRequiredFields = ['name'];
+        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {});
+        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>

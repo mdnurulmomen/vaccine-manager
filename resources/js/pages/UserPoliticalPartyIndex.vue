@@ -39,15 +39,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
     // import { storeToRefs } from 'pinia'
     import { useGeneralStore } from '@/stores/general';
     import { useUserPoliticalPartyStore } from '@/stores/user-political-party';
 
     // onCreated equivalent
-    const generalStore = useGeneralStore()
-    const myPoliticalPartyStore = useUserPoliticalPartyStore()
+    const generalStore = useGeneralStore();
+    const myPoliticalPartyStore = useUserPoliticalPartyStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(myPoliticalPartyStore)

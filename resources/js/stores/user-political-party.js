@@ -98,7 +98,7 @@ export const useUserPoliticalPartyStore = defineStore('user-political-party', ()
             .post('api/v1/user-political-parties/', generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("New skill has been created");
+                    toast.success("New party has been created");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -128,7 +128,7 @@ export const useUserPoliticalPartyStore = defineStore('user-political-party', ()
             .put('api/v1/user-political-parties/' + generalStore.currentEntity.id, generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been updated");
+                    toast.success("Party has been updated");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -158,7 +158,7 @@ export const useUserPoliticalPartyStore = defineStore('user-political-party', ()
             .delete('api/v1/user-political-parties/' + generalStore.currentEntity.id)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been deleted");
+                    toast.success("Party has been deleted");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.deleteConfirmationModal.hide();
                     resetCurrentEntity();

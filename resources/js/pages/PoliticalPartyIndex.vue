@@ -41,15 +41,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
     // import { storeToRefs } from 'pinia'
     import { usePoliticalPartyStore } from '@/stores/political-party';
     import { useGeneralStore } from '@/stores/general';
 
     // onCreated equivalent
-    const partyStore = usePoliticalPartyStore()
-    const generalStore = useGeneralStore()
+    const partyStore = usePoliticalPartyStore();
+    const generalStore = useGeneralStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(partyStore)
@@ -67,8 +67,8 @@
             },
         ];
 
-        generalStore.currentEntityRequiredFields = ['name']
-        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {})
-        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {})
+        generalStore.currentEntityRequiredFields = ['name'];
+        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {});
+        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>

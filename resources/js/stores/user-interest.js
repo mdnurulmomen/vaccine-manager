@@ -98,7 +98,7 @@ export const useUserInterestStore = defineStore('user-interest', () => {
             .post('api/v1/user-interests/', generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("New skill has been created");
+                    toast.success("New interest has been created");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -128,7 +128,7 @@ export const useUserInterestStore = defineStore('user-interest', () => {
             .put('api/v1/user-interests/' + generalStore.currentEntity.id, generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been updated");
+                    toast.success("Interest has been updated");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -158,7 +158,7 @@ export const useUserInterestStore = defineStore('user-interest', () => {
             .delete('api/v1/user-interests/' + generalStore.currentEntity.id)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been deleted");
+                    toast.success("Interest has been deleted");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.deleteConfirmationModal.hide();
                     resetCurrentEntity();

@@ -98,7 +98,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
             .post('api/v1/user-locations/', generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("New skill has been created");
+                    toast.success("New location has been created");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -128,7 +128,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
             .put('api/v1/user-locations/' + generalStore.currentEntity.id, generalStore.currentEntity)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been updated");
+                    toast.success("Location has been updated");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
@@ -158,7 +158,7 @@ export const useUserLocationStore = defineStore('user-location', () => {
             .delete('api/v1/user-locations/' + generalStore.currentEntity.id)
             .then(response => {
                 if (response.status == 200) {
-                    toast.success("Skill has been deleted");
+                    toast.success("Location has been deleted");
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.deleteConfirmationModal.hide();
                     resetCurrentEntity();

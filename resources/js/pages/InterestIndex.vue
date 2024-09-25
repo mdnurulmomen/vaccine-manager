@@ -41,15 +41,15 @@
 </template>
 
 <script setup>
-    import { onMounted } from 'vue'
-    import { Modal } from 'bootstrap'
-    // import { storeToRefs } from 'pinia'
+    import { onMounted } from 'vue';
+    import { Modal } from 'bootstrap';
+    // import { storeToRefs } from 'pinia';
     import { useGeneralStore } from '@/stores/general';
     import { useInterestStore } from '@/stores/interest';
 
     // onCreated equivalent
-    const interestStore = useInterestStore()
-    const generalStore = useGeneralStore()
+    const interestStore = useInterestStore();
+    const generalStore = useGeneralStore();
 
     // importing state-variables with ref()
     // const { createOrEditModal, deleteConfirmationModal } = storeToRefs(interestStore)
@@ -65,9 +65,10 @@
                 name:'name',
                 type:'text'
             }
-        ]
-        generalStore.currentEntityRequiredFields = ['name']
-        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {})
-        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {})
+        ];
+
+        generalStore.currentEntityRequiredFields = ['name'];
+        generalStore.createOrEditModal = new Modal('#dynamic-form-modal', {});
+        generalStore.deleteConfirmationModal = new Modal('#delete-confirmation-modal', {});
     })
 </script>
