@@ -14,7 +14,11 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @auth
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @else
+        @vite(['resources/sass/app.scss'])
+    @endauth
 </head>
 <body>
     <div id="main-app">
