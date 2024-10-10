@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Enums\UserType;
-use Illuminate\Validation\Rule;
+use App\Models\VaccineCenter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -44,7 +43,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('auth.register')->with('userTypes', UserType::values());
+        return view('auth.register')->with('centers', VaccineCenter::all());
     }
 
     /**
@@ -57,11 +56,15 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'mobile' => [
+                'required', 'string', 'max:11',
+                'regex:/(01)[0-9]{9}/'
+            ],
+            'nid' => ['required', 'string', 'max:20', 'unique:users,nid'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_type' => [
-                'required', 'string',
-                Rule::enum(UserType::class)
+            'vaccine_center_id' => [
+                'required', 'integer', 'exists:vaccine_centers,id'
             ],
         ]);
     }
@@ -77,8 +80,10 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'mobile' => $data['mobile'],
+            'nid' => $data['nid'],
             'password' => Hash::make($data['password']),
-            'user_type' => $data['user_type'],
+            'vaccine_center_id' => $data['vaccine_center_id'],
         ]);
     }
 }

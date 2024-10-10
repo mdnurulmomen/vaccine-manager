@@ -40,6 +40,34 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('Mobile') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile">
+
+                                @error('mobile')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="nid" class="col-md-4 col-form-label text-md-end">{{ __('NID') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nid" type="text" class="form-control @error('nid') is-invalid @enderror" name="nid" value="{{ old('nid') }}" required autocomplete="nid">
+
+                                @error('nid')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -62,17 +90,25 @@
                         </div>
 
                         <div class="row mb-4">
-                            <label for="user-type" class="col-md-4 col-form-label text-md-end">{{ __('User Type') }}</label>
+                            <label for="vaccine-center" class="col-md-4 col-form-label text-md-end">
+                                {{ __('Vaccine Center') }}
+                            </label>
 
                             <div class="col-md-6">
-                                <select id="user-type" name="user_type" class="form-control" required>
-                                    <option selected>Choose a type</option>
-                                    @foreach ($userTypes as $userType)
-                                        <option value="{{ $userType }}">
-                                            {{ ucfirst($userType) }}
+                                <select id="vaccine-center" name="vaccine_center_id" class="form-control @error('vaccine_center_id') is-invalid @enderror" required>
+                                    <option selected disabled>Choose a center</option>
+                                    @foreach ($centers as $center)
+                                        <option value="{{ $center->id }}">
+                                            {{ ucfirst($center->name) }}
                                         </option>
                                     @endforeach
                                 </select>
+
+                                @error('vaccine_center_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
