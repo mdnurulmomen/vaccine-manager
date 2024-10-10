@@ -19,6 +19,8 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class)->only('index');
 
+        Route::apiResource('vaccine-centers', VaccineCenterController::class)->only('index');
+
         Route::get('/unscheduled-users', [UserController::class, 'allUnscheduledUsers'])->name('users.unscheduled');
     });
 });
