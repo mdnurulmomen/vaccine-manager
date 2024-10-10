@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            <a class="navbar-brand" href="#">Network Connector</a>
+                            <a class="navbar-brand" href="#">Vaccine Manager</a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -26,30 +26,9 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <RouterLink class="dropdown-item" to="/skills">
-                                                Skills
-                                                <span class="sr-only" v-show="currentRouteName=='skills.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/interests">
-                                                Interests
-                                                <span class="sr-only" v-show="currentRouteName=='interests.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/locations">
-                                                Locations
-                                                <span class="sr-only" v-show="currentRouteName=='locations.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/political-parties">
-                                                Political-Parties
-                                                <span class="sr-only" v-show="currentRouteName=='political-parties.index'">
+                                            <RouterLink class="dropdown-item" to="/vaccine-centers">
+                                                Centers
+                                                <span class="sr-only" v-show="currentRouteName=='vaccine-centers.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>
@@ -58,34 +37,13 @@
 
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            My Preferences
+                                            Vaccinate Users
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <RouterLink class="dropdown-item" to="/my-skills">
-                                                Preferred Skills
-                                                <span class="sr-only" v-show="currentRouteName=='user-skills.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/my-interests">
-                                                Preferred Interests
-                                                <span class="sr-only" v-show="currentRouteName=='user-interests.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/my-locations">
-                                                Preferred Locations
-                                                <span class="sr-only" v-show="currentRouteName=='user-locations.index'">
-                                                    (current)
-                                                </span>
-                                            </RouterLink>
-
-                                            <RouterLink class="dropdown-item" to="/my-political-parties">
-                                                Preferred Parties
-                                                <span class="sr-only" v-show="currentRouteName=='user-political-parties.index'">
+                                            <RouterLink class="dropdown-item" to="/user-vaccines">
+                                                Scheduled Users
+                                                <span class="sr-only" v-show="currentRouteName=='user-vaccines.index'">
                                                     (current)
                                                 </span>
                                             </RouterLink>
