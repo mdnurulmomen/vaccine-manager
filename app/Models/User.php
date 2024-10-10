@@ -12,17 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'user_type'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,23 +33,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function skills()
+    public function center()
     {
-        return $this->hasMany(UserSkill::class, 'user_id', 'id');
+        return $this->belongsTo(VaccineCenter::class, 'vaccine_center_id', 'id');
     }
 
-    public function interests()
+    public function vaccine()
     {
-        return $this->hasMany(UserInterest::class, 'user_id', 'id');
-    }
-
-    public function locations()
-    {
-        return $this->hasMany(UserLocation::class, 'user_id', 'id');
-    }
-
-    public function parties()
-    {
-        return $this->hasMany(UserPoliticalParty::class, 'user_id', 'id');
+        return $this->hasOne(UserVaccine::class, 'user_id', 'id');
     }
 }
