@@ -21,6 +21,10 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('vaccine-centers', VaccineCenterController::class)->only('index');
 
+        Route::apiResource('user-vaccines', UserVaccineController::class)->parameters([
+            'user-vaccines' => 'userVaccne'
+        ]);
+
         Route::get('/unscheduled-users', [UserController::class, 'allUnscheduledUsers'])->name('users.unscheduled');
     });
 });
