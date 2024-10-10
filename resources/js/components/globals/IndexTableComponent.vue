@@ -30,7 +30,7 @@
                     class="col"
                     v-for="columnName in props.columnNames"
                 >
-                    {{ contentName(content, columnName) }}
+                    {{ columnName!='status' ? contentName(content, columnName) : (content[columnName] ? 'Completed' : 'Incomplete') }}
                 </td>
 
                 <td
@@ -42,6 +42,7 @@
                         v-for="(actionButtonName, actionButtonNameIndex) in props.actionButtonNames"
                         :class="['btn', actionButtonClassNames[actionButtonNameIndex], 'me-2']"
                         @click="$emit(actionButtonEmittingMethodNames[actionButtonNameIndex], content)"
+                        :disabled="content[columnName]"
                     >
                         {{ $helpers.capitalizeEachWord(actionButtonName) }}
                     </button>
