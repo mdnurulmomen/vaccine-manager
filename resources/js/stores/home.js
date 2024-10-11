@@ -15,7 +15,7 @@ export const useHomeStore = defineStore('home', () => {
         generalStore.currentIndexContents = [];
 
         axios
-            .get('/api/v1/users/')
+            .get('/api/v1/users?perPage=10')
             .then(response => {
                 // console.log(response);
                 if (response.status == 200) {
