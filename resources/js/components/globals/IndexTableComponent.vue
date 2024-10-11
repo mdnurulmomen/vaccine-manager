@@ -40,12 +40,19 @@
                     <button
                         type="button"
                         v-for="(actionButtonName, actionButtonNameIndex) in props.actionButtonNames"
-                        :class="['btn', actionButtonClassNames[actionButtonNameIndex], 'me-2']"
+                        :class="['btn', actionButtonClassNames[actionButtonNameIndex], 'me-2 mb-1']"
                         @click="$emit(actionButtonEmittingMethodNames[actionButtonNameIndex], content)"
-                        :disabled="content['status']"
+                        v-show="! content['status']"
                     >
                         {{ $helpers.capitalizeEachWord(actionButtonName) }}
                     </button>
+
+                    <span
+                        class="text-danger"
+                        v-show="content['status']"
+                    >
+                        - -
+                    </span>
                 </td>
             </tr>
         </tbody>

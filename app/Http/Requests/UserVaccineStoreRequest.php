@@ -47,7 +47,8 @@ class UserVaccineStoreRequest extends FormRequest
         return [
             function (Validator $validator) {
                 $vaccineCenter = VaccineCenter::find($this->input('vaccine_center_id'));
-                $numberAssignedUsers = DB::table('user_vaccines')->where('schedule', $this->input('schedule'))->groupBy('vaccine_center_id')->count();
+                $numberAssignedUsers = DB::table('user_vaccines')->whereDate('schedule', $this->input('schedule'))
+                ->where('vaccine_center_id', $this->input('vaccine_center_id'))->count();
 
                 if ($numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
                     $validator->errors()->add(
