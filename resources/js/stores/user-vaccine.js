@@ -219,6 +219,39 @@ export const useUserVaccineStore = defineStore('user-vaccine', () => {
 
     }
 
+    function vaccinateUser(content) {
+
+        generalStore.currentEntity = content;
+        generalStore.currentEntity.is_completed = true;
+
+        generalStore.isSubmitted = true;
+
+        axios
+            .patch('api/v1/user-vaccines/' + generalStore.currentEntity.id, generalStore.currentEntity)
+            .then(response => {
+                if (response.status == 200) {
+                    toast.success("User has been vaccinated");
+                    generalStore.currentIndexContents = response.data.data;
+                    generalStore.createOrEditModal.hide();
+                    resetCurrentEntity();
+                }
+            })
+            .catch(error => {
+                if (error.response.status == 422) {
+                    resetErrorObject();
+
+                    for (var x in error.response.data.errors) {
+                        toast.warning(error.response.data.errors[x][0]);
+                        generalStore.errors[x] = error.response.data.errors[x][0]
+                    }
+                }
+            })
+            .finally(response => {
+                generalStore.isSubmitted = false;
+            });
+
+    }
+
     function showStoreForm() {
         resetErrorObject();
         resetCurrentEntity();
@@ -243,6 +276,6 @@ export const useUserVaccineStore = defineStore('user-vaccine', () => {
 
     return {
         vaccineCenters, unscheduledUsers,
-        fetchVaccineCenters, fetchUnscheduledUsers, fetchIndexContents, storeContent, updateContent, deleteContent, showStoreForm,
+        fetchVaccineCenters, fetchUnscheduledUsers, fetchIndexContents, storeContent, updateContent, deleteContent, showStoreForm, vaccinateUser
     }
 })

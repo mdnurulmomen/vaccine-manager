@@ -32,6 +32,10 @@ class UserVaccineUpdateRequest extends FormRequest
 
             'user_id' => [
                 'required', 'integer', 'exists:users,id'
+            ],
+
+            'is_completed' => [
+                'nullable', 'boolean'
             ]
         ];
     }

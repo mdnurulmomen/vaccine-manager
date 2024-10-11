@@ -13,10 +13,11 @@
                         <index-table-component
                             :column-names="['name', 'status']"
                             :has-actions="true"
-                            :action-button-names="['edit', 'delete']"
-                            :action-button-class-names="['btn-outline-primary', 'btn-outline-danger']"
-                            :action-button-emitting-method-names="['showContentEditForm', 'showContentDeleteConfirmationForm']"
+                            :action-button-names="['vaccinate', 'edit', 'delete']"
+                            :action-button-class-names="['btn-outline-success', 'btn-outline-primary', 'btn-outline-danger']"
+                            :action-button-emitting-method-names="['vaccinateUser', 'showContentEditForm', 'showContentDeleteConfirmationForm']"
 
+                            @vaccinateUser="userVaccineStore.vaccinateUser"
                             @show-content-edit-form="generalStore.showContentEditForm"
                             @show-content-delete-confirmation-form="generalStore.showContentDeleteConfirmationForm"
                         />

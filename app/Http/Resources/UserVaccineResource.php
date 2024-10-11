@@ -20,6 +20,7 @@ class UserVaccineResource extends JsonResource
             'user' => new UserResource($this->whenLoaded('user')),
             'vaccine_center' => new VaccineCenterResource($this->whenLoaded('center')),
             'vaccine_center_id' => $this->vaccine_center_id,
+            'user_id' => $this->user_id,
             'schedule' => $this->schedule->format('Y-m-d'),
             'status' => $this->is_completed,
         ];
