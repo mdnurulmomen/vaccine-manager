@@ -45,6 +45,7 @@
     import { Modal } from 'bootstrap';
     import { useGeneralStore } from '@/stores/general';
     import { useUserVaccineStore } from '@/stores/user-vaccine';
+    import CreateUpdateUserVaccineFormModalComponent from '@/components/CreateUpdateUserVaccineFormModalComponent.vue';
 
     // onCreated equivalent
     const generalStore = useGeneralStore();

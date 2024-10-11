@@ -42,7 +42,7 @@
                         v-for="(actionButtonName, actionButtonNameIndex) in props.actionButtonNames"
                         :class="['btn', actionButtonClassNames[actionButtonNameIndex], 'me-2']"
                         @click="$emit(actionButtonEmittingMethodNames[actionButtonNameIndex], content)"
-                        :disabled="content[columnName]"
+                        :disabled="content['status']"
                     >
                         {{ $helpers.capitalizeEachWord(actionButtonName) }}
                     </button>
