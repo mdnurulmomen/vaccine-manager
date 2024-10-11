@@ -40,6 +40,18 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
 
+     /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $request->merge(['is_admin' => 1]);
+        return $request->only($this->username(), 'password', 'is_admin');
+    }
+
     public function logout(Request $request)
     {
         // auth()->user()->tokens()->delete();

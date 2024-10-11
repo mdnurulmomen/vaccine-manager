@@ -35,10 +35,10 @@ class UserFactory extends Factory
      *
      * @return $this
      */
-    public function unverified(): static
+    public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'is_admin' => true,
         ]);
     }
 }

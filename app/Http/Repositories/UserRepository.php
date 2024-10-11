@@ -21,9 +21,9 @@ class UserRepository implements UserRepositoryInterface
     public function allUnscheduledUsers()
     {
         if (request()->route('perPage')) {
-            return new UserCollection(User::doesntHave('vaccine')->latest()->paginate(request()->route('perPage')));
+            return new UserCollection(User::doesntHave('vaccine')->user()->latest()->paginate(request()->route('perPage')));
         } else {
-            return UserResource::collection(User::doesntHave('vaccine')->latest()->get());
+            return UserResource::collection(User::doesntHave('vaccine')->user()->latest()->get());
         }
     }
 

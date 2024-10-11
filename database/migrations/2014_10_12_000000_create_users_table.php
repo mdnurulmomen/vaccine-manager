@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nid')->unique();
             $table->unsignedBigInteger('vaccine_center_id');
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
