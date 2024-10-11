@@ -15,10 +15,12 @@ class UserVaccineResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->user['name'],
-            'user' => new VaccineCenterResource($this->whenLoaded('user')),
+            'user' => new UserResource($this->whenLoaded('user')),
             'vaccine_center' => new VaccineCenterResource($this->whenLoaded('center')),
             'vaccine_center_id' => $this->vaccine_center_id,
+            'schedule' => $this->schedule->format('Y-m-d'),
             'status' => $this->is_completed,
         ];
     }
