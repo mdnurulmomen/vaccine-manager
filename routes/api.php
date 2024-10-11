@@ -25,6 +25,6 @@ Route::prefix('v1')->group(function () {
             'user-vaccines' => 'userVaccine'
         ]);
 
-        Route::get('/unscheduled-users', [UserController::class, 'allUnscheduledUsers'])->name('users.unscheduled');
+        Route::get('/unscheduled-users', [UserController::class, 'unscheduledUserIndex'])->name('users.unscheduled');
     });
 });

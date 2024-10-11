@@ -9,7 +9,7 @@ use App\Http\Resources\UserResource;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function allUsers()
+    public function index()
     {
         if (request()->route('perPage')) {
             return new UserCollection(User::latest()->paginate(request()->route('perPage')));
@@ -18,7 +18,7 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
-    public function allUnscheduledUsers()
+    public function unscheduledUserIndex()
     {
         if (request()->route('perPage')) {
             return new UserCollection(User::doesntHave('vaccine')->user()->latest()->paginate(request()->route('perPage')));

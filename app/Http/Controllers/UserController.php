@@ -19,15 +19,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->userRepository->allUsers();
+        return $this->userRepository->index();
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function allUnscheduledUsers()
+    public function unscheduledUserIndex()
     {
-        return $this->userRepository->allUnscheduledUsers();
+        return $this->userRepository->unscheduledUserIndex();
     }
 
     /**

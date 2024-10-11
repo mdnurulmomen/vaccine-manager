@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\VaccineCenter;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserVaccineUpdateRequest extends FormRequest
@@ -37,6 +40,29 @@ class UserVaccineUpdateRequest extends FormRequest
             'is_completed' => [
                 'nullable', 'boolean'
             ]
+        ];
+    }
+
+    /**
+     * Get the "after" validation callables for the request.
+     */
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                $vaccineCenter = VaccineCenter::find($this->input('vaccine_center_id'));
+
+                $numberAssignedUsers = DB::table('user_vaccines')->whereDate('schedule', $this->input('schedule'))
+                ->where('vaccine_center_id', $this->input('vaccine_center_id'))->count();
+
+                // if updating vaccine_center
+                if ($this->input('vaccine_center_id') != $this->route('userVaccine')->vaccine_center_id && $numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
+                    $validator->errors()->add(
+                        'schedule',
+                        'This center is booked for selected schedule'
+                    );
+                }
+            }
         ];
     }
 }
