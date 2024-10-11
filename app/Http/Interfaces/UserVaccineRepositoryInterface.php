@@ -4,8 +4,8 @@ namespace App\Http\Interfaces;
 use App\Models\UserVaccine;
 
 Interface UserVaccineRepositoryInterface{
-    public function allUserVaccines();
-    public function storeUserVaccine($data);
-    public function updateUserVaccine($data, UserVaccine $userVaccine);
-    public function destroyUserVaccine(UserVaccine $userVaccine);
+    public function index();
+    public function store($data);
+    public function update($data, UserVaccine $userVaccine);
+    public function destroy(UserVaccine $userVaccine);
 }

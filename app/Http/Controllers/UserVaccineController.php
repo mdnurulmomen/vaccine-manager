@@ -21,7 +21,7 @@ class UserVaccineController extends Controller
      */
     public function index()
     {
-        return $this->userVaccineRepository->allUserVaccines();
+        return $this->userVaccineRepository->index();
     }
 
     /**
@@ -29,8 +29,8 @@ class UserVaccineController extends Controller
      */
     public function store(UserVaccineStoreRequest $request)
     {
-        $this->userVaccineRepository->storeUserVaccine($request->validated());
-        return $this->userVaccineRepository->allUserVaccines();
+        $this->userVaccineRepository->store($request->validated());
+        return $this->userVaccineRepository->index();
     }
 
     /**
@@ -38,16 +38,16 @@ class UserVaccineController extends Controller
      */
     public function update(UserVaccineUpdateRequest $request, UserVaccine $userVaccine)
     {
-        $this->userVaccineRepository->updateUserVaccine($request->validated(), $userVaccine);
-        return $this->userVaccineRepository->allUserVaccines();
+        $this->userVaccineRepository->update($request->validated(), $userVaccine);
+        return $this->userVaccineRepository->index();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserVaccine $userSkill)
+    public function destroy(UserVaccine $userVaccine)
     {
-        $this->userVaccineRepository->destroyUserVaccine($userSkill);
-        return $this->userVaccineRepository->allUserVaccines();
+        $this->userVaccineRepository->destroy($userVaccine);
+        return $this->userVaccineRepository->index();
     }
 }

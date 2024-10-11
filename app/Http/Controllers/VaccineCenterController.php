@@ -18,6 +18,6 @@ class VaccineCenterController extends Controller
      */
     public function index()
     {
-        return $this->vaccineCenterRepository->vaccineAllCenters();
+        return $this->vaccineCenterRepository->index();
     }
 }

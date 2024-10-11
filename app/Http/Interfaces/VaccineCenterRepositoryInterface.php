@@ -3,5 +3,5 @@ namespace App\Http\Interfaces;
 
 
 Interface VaccineCenterRepositoryInterface{
-    public function vaccineAllCenters();
+    public function index();
 }

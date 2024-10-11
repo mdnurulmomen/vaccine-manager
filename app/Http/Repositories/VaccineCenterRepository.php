@@ -8,7 +8,7 @@ use App\Http\Interfaces\VaccineCenterRepositoryInterface;
 
 class VaccineCenterRepository implements VaccineCenterRepositoryInterface
 {
-    public function vaccineAllCenters()
+    public function index()
     {
         return VaccineCenterResource::collection(VaccineCenter::all());
     }

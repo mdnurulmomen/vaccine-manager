@@ -9,7 +9,7 @@ use App\Http\Interfaces\UserVaccineRepositoryInterface;
 
 class UserVaccineRepository implements UserVaccineRepositoryInterface
 {
-    public function allUserVaccines()
+    public function index()
     {
         if (request()->route('perPage')) {
             return new UserVaccineCollection(UserVaccine::with(['user', 'center'])->paginate(request()->route('perPage')));
@@ -18,17 +18,17 @@ class UserVaccineRepository implements UserVaccineRepositoryInterface
         }
     }
 
-    public function storeUserVaccine($data)
+    public function store($data)
     {
         UserVaccine::firstOrCreate($data);
     }
 
-    public function updateUserVaccine($data, UserVaccine $userVaccine)
+    public function update($data, UserVaccine $userVaccine)
     {
         $userVaccine->update($data);
     }
 
-    public function destroyUserVaccine(UserVaccine $userVaccine)
+    public function destroy(UserVaccine $userVaccine)
     {
         $userVaccine->delete();
     }
