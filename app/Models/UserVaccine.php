@@ -19,6 +19,7 @@ class UserVaccine extends Model
      */
     protected $casts = [
         'is_completed' => 'boolean',
+        'schedule' => 'datetime:Y-m-d',
     ];
 
     public function user() {

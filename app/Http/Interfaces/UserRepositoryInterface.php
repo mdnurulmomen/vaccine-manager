@@ -6,4 +6,5 @@ use App\Models\Skill;
 Interface UserRepositoryInterface{
     public function allUsers();
     public function allUnscheduledUsers();
+    public function searchUserNID($data);
 }

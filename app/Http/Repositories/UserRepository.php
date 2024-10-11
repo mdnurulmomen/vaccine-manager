@@ -26,4 +26,9 @@ class UserRepository implements UserRepositoryInterface
             return UserResource::collection(User::doesntHave('vaccine')->latest()->get());
         }
     }
+
+    public function searchUserNID($data)
+    {
+        return new UserResource(User::with('vaccine')->firstWhere('nid', $data['nid']));
+    }
 }
