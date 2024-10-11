@@ -56,6 +56,7 @@
                                 :class="['form-control', generalStore.errors['vaccine_center'] ? 'is-invalid' : 'is-valid']"
                                 :disabled="generalStore.isSubmitted"
                                 :required="true"
+                                @change="validateFormInput('vaccine_center')"
                             >
                                 <option disabled value="">
                                     Please Select Center
@@ -89,6 +90,7 @@
                                 :min-date="new Date()"
                                 :enable-time-picker="false"
                                 :disabled="generalStore.isSubmitted"
+                                @update:model-value="validateFormInput('schedule')"
                                 required
                             />
 
@@ -138,6 +140,9 @@
         generalStore.currentEntity['vaccine_center'] = userVaccineStore.vaccineCenters.find(
             vaccineCenter => vaccineCenter.id == generalStore.currentEntity['user'].vaccine_center_id
         )
+
+        validateFormInput('user');
+        validateFormInput('vaccine_center');
     }
 
     function submitForm() {
