@@ -40,7 +40,7 @@
 
                 <div class="card-footer text-center">
                     @error('nid')
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger btn-sm">
                             {{ __('Unregistered') }}
                         </button>
 
@@ -55,17 +55,17 @@
                         Hello {{ $user['name'] }}, You're
 
                         @if(empty($user['vaccine']))
-                            <button type="button" class="btn btn-warning">
+                            <button type="button" class="btn btn-warning btn-sm">
                                 {{ __('Unscheduled') }}
                             </button>
 
                         @elseif ($user['vaccine']['is_completed']==1)
-                            <button type="button" class="btn btn-success">
+                            <button type="button" class="btn btn-success btn-sm">
                                 {{ __('Vaccinated') }}
                             </button>
 
                         @elseif ($user['vaccine']['schedule'] > today())
-                            <button type="button" class="btn btn-info">
+                            <button type="button" class="btn btn-info btn-sm">
                                 {{ __('Scheduled') }}
                             </button>
                             <p>
@@ -73,7 +73,7 @@
                             </p>
 
                         @elseif ($user['vaccine']['schedule'] < today() && $user['vaccine']['is_completed']==0)
-                            <button type="button" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger btn-sm">
                                 {{ __('out of time') }}
                             </button>
                         @endif
