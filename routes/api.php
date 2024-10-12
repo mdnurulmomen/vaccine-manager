@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserVaccineController;
-use App\Http\Controllers\VaccineCenterController;
+use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\API\V1\UserVaccineController;
+use App\Http\Controllers\API\V1\VaccineCenterController;
 
 /*
 |--------------------------------------------------------------------------

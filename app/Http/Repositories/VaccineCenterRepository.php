@@ -3,7 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\VaccineCenter;
-use App\Http\Resources\VaccineCenterResource;
+use App\Http\Resources\API\V1\VaccineCenterResource;
 use App\Http\Interfaces\VaccineCenterRepositoryInterface;
 
 class VaccineCenterRepository implements VaccineCenterRepositoryInterface

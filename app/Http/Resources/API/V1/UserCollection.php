@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\API\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserVaccineCollection extends ResourceCollection
+class UserCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +16,7 @@ class UserVaccineCollection extends ResourceCollection
     {
         return [
             'current_page' => $this->currentPage(),
-            'data'=> UserVaccineResource::collection($this->collection),
+            'data'=> UserResource::collection($this->collection),
             'first_page_url'=> $this->url(1),
             'from'=> $this->firstItem(),
             'last_page'=> $this->lastPage(),

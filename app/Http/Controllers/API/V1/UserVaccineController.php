@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Models\UserVaccine;
-use App\Http\Requests\UserVaccineStoreRequest;
-use App\Http\Requests\UserVaccineUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\UserVaccineStoreRequest;
+use App\Http\Requests\API\V1\UserVaccineUpdateRequest;
 use App\Http\Interfaces\UserVaccineRepositoryInterface;
 
 class UserVaccineController extends Controller

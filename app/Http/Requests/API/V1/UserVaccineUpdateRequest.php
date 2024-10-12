@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\V1;
 
 use App\Models\VaccineCenter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserVaccineStoreRequest extends FormRequest
+class UserVaccineUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,6 +35,10 @@ class UserVaccineStoreRequest extends FormRequest
 
             'user_id' => [
                 'required', 'integer', 'exists:users,id'
+            ],
+
+            'is_completed' => [
+                'nullable', 'boolean'
             ]
         ];
     }
@@ -51,7 +55,8 @@ class UserVaccineStoreRequest extends FormRequest
                 $numberAssignedUsers = DB::table('user_vaccines')->whereDate('schedule', $this->input('schedule'))
                 ->where('vaccine_center_id', $this->input('vaccine_center_id'))->count();
 
-                if ($numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
+                // if updating user/vaccine-center
+                if ((($this->input('vaccine_center_id') != $this->route('userVaccine')->vaccine_center_id) || ($this->input('user_id') != $this->route('userVaccine')->user_id)) && $numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
                     $validator->errors()->add(
                         'schedule',
                         'This center is booked for selected schedule'

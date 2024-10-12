@@ -3,8 +3,8 @@
 namespace App\Http\Repositories;
 
 use App\Models\UserVaccine;
-use App\Http\Resources\UserVaccineResource;
-use App\Http\Resources\UserVaccineCollection;
+use App\Http\Resources\API\V1\UserVaccineResource;
+use App\Http\Resources\API\V1\UserVaccineCollection;
 use App\Http\Interfaces\UserVaccineRepositoryInterface;
 
 class UserVaccineRepository implements UserVaccineRepositoryInterface

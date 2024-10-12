@@ -4,8 +4,8 @@ namespace App\Http\Repositories;
 
 use App\Models\User;
 use App\Http\Interfaces\UserRepositoryInterface;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\API\V1\UserCollection;
+use App\Http\Resources\API\V1\UserResource;
 
 class UserRepository implements UserRepositoryInterface
 {
