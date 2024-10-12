@@ -11,8 +11,8 @@ class UserRepository implements UserRepositoryInterface
 {
     public function index()
     {
-        if (request()->route('perPage')) {
-            return new UserCollection(User::latest()->paginate(request()->route('perPage')));
+        if (request()->has('perPage')) {
+            return new UserCollection(User::latest()->paginate(request()->input('perPage')));
         } else {
             return UserResource::collection(User::latest()->get());
         }
@@ -20,8 +20,8 @@ class UserRepository implements UserRepositoryInterface
 
     public function unscheduledUserIndex()
     {
-        if (request()->route('perPage')) {
-            return new UserCollection(User::doesntHave('vaccine')->user()->latest()->paginate(request()->route('perPage')));
+        if (request()->has('perPage')) {
+            return new UserCollection(User::doesntHave('vaccine')->user()->latest()->paginate(request()->input('perPage')));
         } else {
             return UserResource::collection(User::doesntHave('vaccine')->user()->latest()->get());
         }

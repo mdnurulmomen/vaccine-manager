@@ -11,10 +11,18 @@ class UserVaccineRepository implements UserVaccineRepositoryInterface
 {
     public function index()
     {
-        if (request()->route('perPage')) {
-            return new UserVaccineCollection(UserVaccine::with(['user', 'center'])->paginate(request()->route('perPage')));
+        if (request()->has('perPage')) {
+            return new UserVaccineCollection(
+                UserVaccine::with(['user', 'center'])
+                ->where('is_completed', false)
+                ->paginate(request()->input('perPage'))
+            );
         } else {
-            return UserVaccineResource::collection(UserVaccine::with(['user', 'center'])->get());
+            return UserVaccineResource::collection(
+                UserVaccine::with(['user', 'center'])
+                ->where('is_completed', false)
+                ->get()
+            );
         }
     }
 
