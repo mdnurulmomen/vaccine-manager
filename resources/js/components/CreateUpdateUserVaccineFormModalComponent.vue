@@ -90,6 +90,7 @@
                                 :min-date="new Date()"
                                 :enable-time-picker="false"
                                 :disabled="generalStore.isSubmitted"
+                                :disabled-week-days="[5,6]"
                                 @update:model-value="validateFormInput('schedule')"
                                 required
                             />
