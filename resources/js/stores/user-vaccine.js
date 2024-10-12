@@ -54,6 +54,7 @@ export const useUserVaccineStore = defineStore('user-vaccine', () => {
 
     function fetchUnscheduledUsers() {
 
+        unscheduledUsers.value = [];
         generalStore.loading = true;
 
         axios
@@ -141,6 +142,7 @@ export const useUserVaccineStore = defineStore('user-vaccine', () => {
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
+                    fetchUnscheduledUsers();
                 }
             })
             .catch(error => {
@@ -171,6 +173,7 @@ export const useUserVaccineStore = defineStore('user-vaccine', () => {
                     generalStore.currentIndexContents = response.data.data;
                     generalStore.createOrEditModal.hide();
                     resetCurrentEntity();
+                    fetchUnscheduledUsers();
                 }
             })
             .catch(error => {

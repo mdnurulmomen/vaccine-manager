@@ -55,8 +55,8 @@ class UserVaccineUpdateRequest extends FormRequest
                 $numberAssignedUsers = DB::table('user_vaccines')->whereDate('schedule', $this->input('schedule'))
                 ->where('vaccine_center_id', $this->input('vaccine_center_id'))->count();
 
-                // if updating vaccine_center
-                if ($this->input('vaccine_center_id') != $this->route('userVaccine')->vaccine_center_id && $numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
+                // if updating user/vaccine-center
+                if ((($this->input('vaccine_center_id') != $this->route('userVaccine')->vaccine_center_id) || ($this->input('user_id') != $this->route('userVaccine')->user_id)) && $numberAssignedUsers >= $vaccineCenter->maximum_vaccine_per_day) {
                     $validator->errors()->add(
                         'schedule',
                         'This center is booked for selected schedule'
