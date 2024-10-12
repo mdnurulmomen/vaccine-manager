@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useUserVaccineStore } from '@/stores/user-vaccine';
 
 export const useGeneralStore = defineStore('general', () => {
     /* state */
@@ -29,6 +30,8 @@ export const useGeneralStore = defineStore('general', () => {
 
     const deletionWarningMessage = ref("Remember, You can't restore this item again !")
 
+    const userVaccineStore = useUserVaccineStore()
+
     /* getters */
     // const doubleCount = computed(() => count.value * 2)
 
@@ -40,6 +43,11 @@ export const useGeneralStore = defineStore('general', () => {
     function showContentEditForm(content) {
         isCreateMode.value = false;
         currentEntity.value = content;
+
+        if (currentEntityName.value = 'scheduled-users') {
+            userVaccineStore.unscheduledUsers.push(currentEntity.value['user']);
+        }
+
         createOrEditModal.value.show();
     }
 

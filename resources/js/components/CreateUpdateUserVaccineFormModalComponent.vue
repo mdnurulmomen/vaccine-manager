@@ -48,7 +48,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">
-                                Change Vaccine Center
+                                Select Vaccine-Center
                             </label>
 
                             <select
@@ -120,9 +120,9 @@
 </template>
 
 <script setup>
+    import { defineEmits, ref } from 'vue';
     import '@vuepic/vue-datepicker/dist/main.css'
     import VueDatePicker from '@vuepic/vue-datepicker';
-    import { defineEmits, ref } from 'vue';
     import { useGeneralStore } from '@/stores/general';
     import { useUserVaccineStore } from '@/stores/user-vaccine';
 
@@ -131,10 +131,10 @@
 
     const emit = defineEmits(['storeContent', 'updateContent'])
 
+    const isSubmittable = ref(true);
+
     userVaccineStore.fetchVaccineCenters();
     userVaccineStore.fetchUnscheduledUsers();
-
-    const isSubmittable = ref(true)
 
     function setPreferredCenter() {
         generalStore.currentEntity['vaccine_center'] = userVaccineStore.vaccineCenters.find(
@@ -143,6 +143,16 @@
 
         validateFormInput('user');
         validateFormInput('vaccine_center');
+    }
+
+    function formatVaccineSchedule(date) {
+        const d = new Date(date);
+
+        const day = d.getDate();
+        const month = d.getMonth() + 1;
+        const year = d.getFullYear();
+
+        return `${year}-${month}-${day}`;
     }
 
     function submitForm() {
@@ -163,16 +173,6 @@
 
         }
 
-    }
-
-    function formatVaccineSchedule(date) {
-        const d = new Date(date);
-
-        const day = d.getDate();
-        const month = d.getMonth() + 1;
-        const year = d.getFullYear();
-
-        return `${year}-${month}-${day}`;
     }
 
     function isVerifiedInput() {
